@@ -8,14 +8,15 @@ namespace Patterns
     {
         #region Gameplay
         OnInitGame,
-        OnGameStartCounting,
-        OnGameEndCounting,
         OnStartInitGame,
         OnSpawnedCars,
+        OnGameStartCounting,
+        OnGameEndCounting,
         OnStartGameplay,
         FinishCounting,
         OnHitFinishLine,
         OnFinishGame,
+        OnReplayBtnClicked,
         #endregion
 
         #region UI

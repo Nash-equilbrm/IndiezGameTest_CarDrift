@@ -32,13 +32,14 @@ namespace Game.Car
 
         private void OnStartGameplay(object obj)
         {
-            _movementController.KeepGettingInput = true;
+            _movementController.ResetMovement();
             _movementController.enabled = true;
         }
 
         private void OnFinishGame(object obj)
         {
             // stop engine
+            _movementController.ResetMovement();
             _movementController.KeepGettingInput = false;
         }
 

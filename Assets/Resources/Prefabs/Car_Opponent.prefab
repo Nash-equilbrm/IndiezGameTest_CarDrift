@@ -582,7 +582,7 @@ GameObject:
   - component: {fileID: 5619780675921390745}
   - component: {fileID: 6715936284863039921}
   - component: {fileID: 6302136368477885232}
-  - component: {fileID: 5954591129946900593}
+  - component: {fileID: -4286799644892688367}
   m_Layer: 0
   m_Name: Car_Opponent
   m_TagString: Untagged
@@ -660,7 +660,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &5954591129946900593
+--- !u!114 &-4286799644892688367
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -672,12 +672,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cba81c109a33494d98af79308bce09a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 50
-  maxSpeed: 15
-  drag: 0.98
-  steerAngle: 20
-  traction: 1
-  coordinateUI: {fileID: 0}
+  acceleration: 10
+  maxSpeed: 20
+  drag: 1.025
+  steerSpeed: 100
+  traction: 0.4
+  coordinateUI: {fileID: 3979469574849949859, guid: 7d13ba8ccf2064c738557ad6e3cf641e,
+    type: 3}
+  curSpeed: 0
 --- !u!1 &3695201368437437118
 GameObject:
   m_ObjectHideFlags: 0

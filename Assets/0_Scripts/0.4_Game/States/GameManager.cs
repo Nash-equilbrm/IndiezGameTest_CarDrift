@@ -2,6 +2,7 @@ using Game.Car;
 using Game.RaceTrack;
 using Game.States;
 using Patterns;
+using System;
 using UnityEngine;
 
 
@@ -60,6 +61,11 @@ namespace Game
         internal void ChangeToFinishGameState()
         {
             _stateMachine.ChangeState(_finishGameState);
+        }
+
+        internal void ChangeToInitGameState()
+        {
+            _stateMachine.ChangeState(_initGameState);
         }
 
 

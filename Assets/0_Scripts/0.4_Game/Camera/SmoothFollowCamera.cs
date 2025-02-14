@@ -24,6 +24,7 @@ namespace Game.CameraUtils
 
         private void OnSpawnedCars(object obj)
         {
+            if (_target != null) return;
             var tuple = (Tuple<object, object>)obj;
             _target = (tuple.Item1 as CarController).transform;
         }
