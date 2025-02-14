@@ -32,13 +32,10 @@ namespace Game.CameraUtils
         {
             if (_target == null) return;
 
-            // Desired position
             Vector3 desiredPosition = _target.position + offset;
 
-            // Smoothly move the camera
             transform.position = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
 
-            // Make the camera look at the target
             transform.LookAt(_target.position);
         }
     }

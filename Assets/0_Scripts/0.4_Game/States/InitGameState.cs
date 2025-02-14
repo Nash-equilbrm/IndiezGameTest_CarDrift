@@ -18,7 +18,7 @@ namespace Game.States
             base.Enter();
             InitGame();
             _context.Register(EventID.OnSpawnedCars, OnSpawnedCars);
-            _context.Broadcast(EventID.StartSpawningCars);
+            _context.Broadcast(EventID.OnStartInitGame);
         }
 
         public override void Exit()

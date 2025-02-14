@@ -582,6 +582,7 @@ GameObject:
   - component: {fileID: 5619780675921390745}
   - component: {fileID: 6715936284863039921}
   - component: {fileID: 6302136368477885232}
+  - component: {fileID: 5877298572167858265}
   - component: {fileID: 5954591129946900593}
   m_Layer: 0
   m_Name: Car_Player
@@ -656,11 +657,24 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 84
   m_CollisionDetection: 0
+--- !u!114 &5877298572167858265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3653291844489898586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07d7e0264b032f74f8d7dc52e225f978, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _movementController: {fileID: 5954591129946900593}
 --- !u!114 &5954591129946900593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -673,12 +687,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cba81c109a33494d98af79308bce09a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 50
-  maxSpeed: 15
-  drag: 0.98
-  steerAngle: 20
-  traction: 1
+  acceleration: 10
+  maxSpeed: 20
+  drag: 1
+  steerAngle: 100
+  traction: 0.4
   coordinateUI: {fileID: 3979469574849949859}
+  rb: {fileID: 6302136368477885232}
+  curSpeed: 0
 --- !u!1 &3695201368437437118
 GameObject:
   m_ObjectHideFlags: 0

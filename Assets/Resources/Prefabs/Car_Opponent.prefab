@@ -667,7 +667,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3653291844489898586}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6cba81c109a33494d98af79308bce09a, type: 3}
   m_Name: 
@@ -677,6 +677,7 @@ MonoBehaviour:
   drag: 0.98
   steerAngle: 20
   traction: 1
+  coordinateUI: {fileID: 0}
 --- !u!1 &3695201368437437118
 GameObject:
   m_ObjectHideFlags: 0

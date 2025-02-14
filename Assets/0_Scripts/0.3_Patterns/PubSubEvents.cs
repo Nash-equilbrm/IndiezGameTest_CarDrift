@@ -10,8 +10,12 @@ namespace Patterns
         OnInitGame,
         OnGameStartCounting,
         OnGameEndCounting,
+        OnStartInitGame,
         OnSpawnedCars,
-        StartSpawningCars,
+        OnStartGameplay,
+        FinishCounting,
+        OnHitFinishLine,
+        OnFinishGame,
         #endregion
 
         #region UI
