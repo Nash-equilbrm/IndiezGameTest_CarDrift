@@ -24,7 +24,7 @@ namespace Game.Car
 
         [SerializeField] private Rigidbody _rb;
 
-        public bool KeepGettingInput { get; internal set; }
+        [field: SerializeField] public bool KeepGettingInput { get; internal set; } = false;
         public float CurrentSpeedSqr => _rb.velocity.sqrMagnitude;
 
         public bool IsDrifting => KeepGettingInput ? Vector3.Angle(_rb.velocity, transform.forward) > driftAngleThreshold : false;
@@ -38,15 +38,7 @@ namespace Game.Car
             _rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
         }
 
-        private void OnEnable()
-        {
-            ResetMovement();
-        }
-
-        private void OnDisable()
-        {
-            KeepGettingInput = false;
-        }
+        
 
         private void Update()
         {

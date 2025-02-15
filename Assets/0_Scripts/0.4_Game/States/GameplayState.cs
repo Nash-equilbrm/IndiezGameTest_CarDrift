@@ -1,3 +1,4 @@
+using Commons;
 using Patterns;
 using System;
 
@@ -14,6 +15,7 @@ namespace Game.States
         {
             base.Enter();
             _context.Register(EventID.OnHitFinishLine, OnHitFinishLine);
+            LogUtility.Info("GameplayState", "EventID.OnStartGameplay");
             _context.Broadcast(EventID.OnStartGameplay);
         }
 

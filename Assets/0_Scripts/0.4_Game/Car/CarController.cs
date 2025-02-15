@@ -12,15 +12,13 @@ namespace Game.Car
 
         public CarMovement MovementController { get => _movementController; set => _movementController = value; }
 
-        private void OnEnable()
+        private void Start()
         {
-            _movementController.enabled = false;
-
             this.Register(EventID.OnStartGameplay, OnStartGameplay);
             this.Register(EventID.OnFinishGame, OnFinishGame);
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             this.Unregister(EventID.OnStartGameplay, OnStartGameplay);
             this.Unregister(EventID.OnFinishGame, OnFinishGame);
@@ -28,13 +26,14 @@ namespace Game.Car
 
         private void OnStartGameplay(object obj)
         {
+            LogUtility.Info("OnStartGameplay", "ResetMovement");
             _movementController.ResetMovement();
-            _movementController.enabled = true;
         }
 
         private void OnFinishGame(object obj)
         {
             // stop engine
+            LogUtility.Info("OnFinishGame", "ResetMovement + KeepGettingInput = false");
             _movementController.ResetMovement();
             _movementController.KeepGettingInput = false;
         }
