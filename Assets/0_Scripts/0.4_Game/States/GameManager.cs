@@ -19,7 +19,7 @@ namespace Game
         #endregion
 
 
-        private StateMachine<GameManager> _stateMachine = new();
+        private StateMachine<GameManager> _stateMachine = new StateMachine<GameManager>();
 
         #region States
         private InitGameState _initGameState;
@@ -38,10 +38,10 @@ namespace Game
         {
             CarSpawner = FindObjectOfType<CarSpawner>();
 
-            _initGameState = new(this);
-            _startGameState = new(this);
-            _gameplayState = new(this);
-            _finishGameState = new(this);
+            _initGameState = new InitGameState(this);
+            _startGameState = new StartGameState(this);
+            _gameplayState = new GameplayState(this);
+            _finishGameState = new FinishGameState(this);
 
             _stateMachine.Initialize(_initGameState);
         }

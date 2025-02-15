@@ -1,10 +1,6 @@
 using Commons;
 using Game.Commons;
 using Patterns;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 

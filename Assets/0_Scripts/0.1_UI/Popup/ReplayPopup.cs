@@ -36,20 +36,12 @@ namespace Game.UI
 
         private void DoAnimationShow(Action onComplete = null)
         {
-            var sq = DOTween.Sequence()
-                .Join(canvasGroup.DOFade(1, animDuration).SetEase(animEase))
-                .Join((playAgainBtn.transform as RectTransform).DOAnchorPos(Vector2.zero, animDuration).SetEase(animEase))
-                .OnComplete(() => onComplete?.Invoke())
-                .SetAutoKill(true);
+            var sq = DOTween.Sequence().Join(canvasGroup.DOFade(1, animDuration).SetEase(animEase)).Join((playAgainBtn.transform as RectTransform).DOAnchorPos(Vector2.zero, animDuration).SetEase(animEase)).OnComplete(() => onComplete?.Invoke()).SetAutoKill(true);
         }
 
         private void DoAnimationHide(Action onComplete)
         {
-            var sq = DOTween.Sequence()
-                .Join(canvasGroup.DOFade(0, animDuration).SetEase(animEase))
-                .Join((playAgainBtn.transform as RectTransform).DOAnchorPos(new(0, -100f), animDuration).SetEase(animEase))
-                .OnComplete(() => onComplete?.Invoke())
-                .SetAutoKill(true);
+            var sq = DOTween.Sequence().Join(canvasGroup.DOFade(0, animDuration).SetEase(animEase)).Join((playAgainBtn.transform as RectTransform).DOAnchorPos(new Vector2(0, -100f), animDuration).SetEase(animEase)).OnComplete(() => onComplete?.Invoke()).SetAutoKill(true);
         }
 
 

@@ -13,15 +13,15 @@ namespace Patterns
         {
             get
             {
-                if (instance == null)
-                {
-                    instance = FindAnyObjectByType<T>();
-                    if (instance == null)
-                    {
-                        LogUtility.NotificationInfo($"No {typeof(T).Name} Singleton Instance");
-                    }
+                //    if (instance == null)
+                //    {
+                //        instance = FindAnyObjectByType<T>();
+                //        if (instance == null)
+                //        {
+                //            LogUtility.NotificationInfo($"No {typeof(T).Name} Singleton Instance");
+                //        }
 
-                }
+                //    }
                 return instance;
             }
         }

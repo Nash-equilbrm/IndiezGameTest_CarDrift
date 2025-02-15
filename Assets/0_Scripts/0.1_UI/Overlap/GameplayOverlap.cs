@@ -27,7 +27,7 @@ namespace Game.UI
         public override void Show(object data)
         {
             base.Show(data);
-            if (data is not CarController controller) return;
+            CarController controller = (CarController)data;
             _carMovementController = controller.MovementController;
             if (!_carMovementController) return;
             _carMovementController.onGetInputValue = () => new Vector2(joystick.Horizontal, joystick.Vertical);

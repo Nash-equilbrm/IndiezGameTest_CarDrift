@@ -19,7 +19,7 @@ namespace Game.RaceTrack
         internal void Spawn()
         {
             GameObject playerCar;
-            if (GameManager.HasInstance && GameManager.Instance.CarController is not null)
+            if (GameManager.HasInstance && GameManager.Instance.CarController != null)
             {
                 playerCar = GameManager.Instance.CarController.gameObject;
             }
@@ -32,12 +32,10 @@ namespace Game.RaceTrack
             playerCar.gameObject.SetActive(true);
 
 
-            GameObject opponentCar = Instantiate(opponentPrefab, parent: GameManager.Instance.World);
-            opponentCar.transform.SetPositionAndRotation(spawnOpponentPosition.position, Quaternion.identity);
-            object param = Tuple.Create(
-                (object)playerCar.GetComponent<CarController>(),
-                //new object());
-                (object)opponentCar.GetComponent<CarController>());
+            //GameObject opponentCar = Instantiate(opponentPrefab, parent: GameManager.Instance.World);
+            //opponentCar.transform.SetPositionAndRotation(spawnOpponentPosition.position, Quaternion.identity);
+            object param = Tuple.Create((object)playerCar.GetComponent<CarController>(), new object());
+            //(object)opponentCar.GetComponent<CarController>());
             this.Broadcast(EventID.OnSpawnedCars, param);
         }
     }
