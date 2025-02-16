@@ -9,7 +9,7 @@ namespace Patterns
         #region Gameplay
         OnInitGame,
         OnStartInitGame,
-        OnSpawnedCars,
+        OnSpawnedGameobjects,
         OnGameStartCounting,
         OnGameEndCounting,
         OnStartGameplay,

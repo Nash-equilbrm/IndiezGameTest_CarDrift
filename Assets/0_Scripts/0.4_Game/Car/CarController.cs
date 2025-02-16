@@ -8,9 +8,9 @@ namespace Game.Car
 {
     public class CarController : MonoBehaviour
     {
-        [SerializeReference] private CarMovement _movementController;
+        public CarMovement movementController = null;
 
-        public CarMovement MovementController { get => _movementController; set => _movementController = value; }
+        public CarMovement MovementController { get => movementController; set => movementController = value; }
 
         private void Start()
         {
@@ -27,15 +27,15 @@ namespace Game.Car
         private void OnStartGameplay(object obj)
         {
             LogUtility.Info("OnStartGameplay", "ResetMovement");
-            _movementController.ResetMovement();
+            movementController.ResetMovement();
         }
 
         private void OnFinishGame(object obj)
         {
             // stop engine
             LogUtility.Info("OnFinishGame", "ResetMovement + KeepGettingInput = false");
-            _movementController.ResetMovement();
-            _movementController.KeepGettingInput = false;
+            movementController.ResetMovement();
+            movementController.keepGettingInput = false;
         }
 
 

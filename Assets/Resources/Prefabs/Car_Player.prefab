@@ -94,7 +94,6 @@ GameObject:
   - component: {fileID: 6198471168731265983}
   - component: {fileID: 5243846361307635386}
   - component: {fileID: 8911061012954667470}
-  - component: {fileID: 3445038831608341853}
   m_Layer: 0
   m_Name: Wheel (2)
   m_TagString: Untagged
@@ -168,29 +167,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &3445038831608341853
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 438406088630491520}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &1543383839831067696
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,7 +178,6 @@ GameObject:
   - component: {fileID: 6713342478460942889}
   - component: {fileID: 1767895470809909437}
   - component: {fileID: 7506867426009487928}
-  - component: {fileID: 4716762069269534447}
   m_Layer: 0
   m_Name: Wheel (1)
   m_TagString: Untagged
@@ -276,29 +251,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &4716762069269534447
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1543383839831067696}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &1560799979840949995
 GameObject:
   m_ObjectHideFlags: 0
@@ -636,8 +588,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 0.69, z: 1.42}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 0.9, z: 1}
+  m_Center: {x: 0, y: -0.05, z: 0}
 --- !u!54 &6302136368477885232
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -648,7 +600,7 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -658,11 +610,11 @@ Rigidbody:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_ImplicitCom: 0
+  m_ImplicitTensor: 0
+  m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 84
   m_CollisionDetection: 1
 --- !u!114 &5877298572167858265
@@ -677,7 +629,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07d7e0264b032f74f8d7dc52e225f978, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementController: {fileID: 5954591129946900593}
+  movementController: {fileID: 5954591129946900593}
 --- !u!114 &5954591129946900593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -694,10 +646,12 @@ MonoBehaviour:
   maxSpeed: 15
   steerSpeed: 70
   traction: 0.01
-  drag: 0.98
+  drag: 0.99
   driftAngleThreshold: 10
+  steeringThreshold: 0.01
+  rb: {fileID: 6302136368477885232}
   coordinateUI: {fileID: 3979469574849949859}
-  _rb: {fileID: 6302136368477885232}
+  keepGettingInput: 0
 --- !u!114 &2559511789456639342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -715,7 +669,7 @@ MonoBehaviour:
   - {fileID: 9018283683228738534}
   - {fileID: 8509004916220470476}
   minVelocityToDisplayDirt: 5
-  _carMovement: {fileID: 5954591129946900593}
+  carMovement: {fileID: 5954591129946900593}
 --- !u!1 &3695201368437437118
 GameObject:
   m_ObjectHideFlags: 0
@@ -6026,7 +5980,6 @@ GameObject:
   - component: {fileID: 6390067955251801652}
   - component: {fileID: 7121669871549798636}
   - component: {fileID: 4427706082638169325}
-  - component: {fileID: 7595809673634549214}
   m_Layer: 0
   m_Name: Wheel (3)
   m_TagString: Untagged
@@ -6100,29 +6053,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &7595809673634549214
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5987069669655696598}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &6147121045630663833
 GameObject:
   m_ObjectHideFlags: 0
@@ -10982,7 +10912,6 @@ GameObject:
   - component: {fileID: 7809896772955712236}
   - component: {fileID: 6595820705455748206}
   - component: {fileID: 4060681959419057303}
-  - component: {fileID: 6550350026248336338}
   m_Layer: 0
   m_Name: Wheel
   m_TagString: Untagged
@@ -11056,29 +10985,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &6550350026248336338
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6575410497866407836}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &7024665752934468693
 GameObject:
   m_ObjectHideFlags: 0

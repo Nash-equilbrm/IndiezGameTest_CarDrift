@@ -10,13 +10,13 @@ namespace Game.RaceTrack
 {
     public class CarSpawner : MonoBehaviour
     {
-        public GameObject playerPrefab;
-        public GameObject opponentPrefab;
-        public Transform spawnPlayerPosition;
-        public Transform spawnOpponentPosition;
+        public GameObject playerPrefab = null;
+        public GameObject opponentPrefab = null;
+        public Transform spawnPlayerPosition = null;
+        public Transform spawnOpponentPosition = null;
 
 
-        internal void Spawn()
+        public void Spawn()
         {
             GameObject playerCar;
             if (GameManager.HasInstance && GameManager.Instance.CarController != null)
@@ -36,7 +36,7 @@ namespace Game.RaceTrack
             //opponentCar.transform.SetPositionAndRotation(spawnOpponentPosition.position, Quaternion.identity);
             object param = Tuple.Create((object)playerCar.GetComponent<CarController>(), new object());
             //(object)opponentCar.GetComponent<CarController>());
-            this.Broadcast(EventID.OnSpawnedCars, param);
+            this.Broadcast(EventID.OnSpawnedGameobjects, param);
         }
     }
 }

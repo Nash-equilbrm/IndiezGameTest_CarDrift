@@ -7,10 +7,10 @@ namespace Game.Car
 {
     public class CarVFX : MonoBehaviour
     {
-        public ParticleSystem driftSmokeVFX;
-        public ParticleSystem[] dirtTrailVFXs;
-        public float minVelocityToDisplayDirt;
-        [SerializeField] private CarMovement _carMovement;
+        public ParticleSystem driftSmokeVFX = null;
+        public ParticleSystem[] dirtTrailVFXs = null;
+        public float minVelocityToDisplayDirt = 0f;
+        public CarMovement carMovement = null;
 
 
         private void Update()
@@ -22,7 +22,7 @@ namespace Game.Car
 
         private void PlayDirtVFX()
         {
-            if (_carMovement.CurrentSpeedSqr < minVelocityToDisplayDirt * minVelocityToDisplayDirt)
+            if (carMovement.CurrentSpeedSqr < minVelocityToDisplayDirt * minVelocityToDisplayDirt)
             {
                 foreach (var dirtTrail in dirtTrailVFXs)
                 {
@@ -45,7 +45,7 @@ namespace Game.Car
 
         private void PlaySmokeVFX()
         {
-            if (_carMovement.IsDrifting && !driftSmokeVFX.isPlaying)
+            if (carMovement.IsDrifting && !driftSmokeVFX.isPlaying)
             {
                 driftSmokeVFX.Play();
             }

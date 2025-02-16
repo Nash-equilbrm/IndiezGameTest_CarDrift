@@ -9,8 +9,8 @@ namespace Game.UI
 {
     public class GameplayOverlap : BaseOverlap
     {
-        public Joystick joystick;
-        private CarMovement _carMovementController;
+        public MobileJoystick joystick = null;
+        private CarMovement _carMovementController = null;
 
         public override void Hide()
         {
@@ -30,7 +30,7 @@ namespace Game.UI
             CarController controller = (CarController)data;
             _carMovementController = controller.MovementController;
             if (!_carMovementController) return;
-            _carMovementController.onGetInputValue = () => new Vector2(joystick.Horizontal, joystick.Vertical);
+            _carMovementController.onGetInputValue = () => joystick.JoystickInput;
         }
     }
 }

@@ -2788,8 +2788,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eda33122389e0e94e858eef79c5b6491, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animationController: {fileID: 2091167175505372068}
-  _carSpawner: {fileID: 4574578636853627435}
+  animationController: {fileID: 2091167175505372068}
+  carSpawner: {fileID: 4574578636853627435}
 --- !u!114 &4574578636853627435
 MonoBehaviour:
   m_ObjectHideFlags: 0

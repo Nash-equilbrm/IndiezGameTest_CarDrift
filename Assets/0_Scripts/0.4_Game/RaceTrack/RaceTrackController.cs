@@ -11,8 +11,8 @@ namespace Game.RaceTrack
 {
     public class RaceTrackController : MonoBehaviour
     {
-        [SerializeField] private RaceTrackAnimation _animationController;
-        [SerializeField] private CarSpawner _carSpawner;
+        public RaceTrackAnimation animationController = null;
+        public CarSpawner carSpawner = null;
         private void OnEnable()
         {
             this.Register(EventID.OnGameStartCounting, OnGameStartCounting);
@@ -27,13 +27,13 @@ namespace Game.RaceTrack
 
         private void OnStartInitGame(object obj)
         {
-            if (_carSpawner == null) return;
-            _carSpawner?.Spawn();
+            if (carSpawner == null) return;
+            carSpawner?.Spawn();
         }
         
         private void OnGameStartCounting(object obj)
         {
-            _animationController.PlayStartLineCountingAnim();
+            animationController.PlayStartLineCountingAnim();
         }
 
         public void OnFinishCounting()
