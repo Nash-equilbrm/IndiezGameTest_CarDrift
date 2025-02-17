@@ -1,3 +1,4 @@
+using Commons;
 using Game.AI;
 using Game.Car;
 using Patterns;
@@ -19,6 +20,23 @@ namespace Game.RaceTrack
 
         public void Spawn()
         {
+            GameObject playerCar = SpawnPlayer();
+            GameObject opponentCar = SpawnOpponent();
+            if (checkpointManager != null) { 
+                opponentCar.GetComponent<OpponentAIController>().checkpoints = checkpointManager.Checkpoints;
+            }
+            else
+            {
+                LogUtility.InvalidInfo("CarSpawner", "Missing checkpointManager ref");
+            }
+            object param = Tuple.Create((object)playerCar.GetComponent<CarController>(), (object)opponentCar.GetComponent<CarController>());
+            //new object());
+            LogUtility.InvalidInfo("CarSpawner", "Broadcast(EventID.OnSpawnedGameobjects)");
+            this.Broadcast(EventID.OnSpawnedGameobjects, param);
+        }
+
+        private GameObject SpawnPlayer()
+        {
             GameObject playerCar;
             if (GameManager.HasInstance && GameManager.Instance.CarController != null)
             {
@@ -31,14 +49,24 @@ namespace Game.RaceTrack
             playerCar.gameObject.SetActive(false);
             playerCar.transform.SetPositionAndRotation(spawnPlayerPosition.position, Quaternion.identity);
             playerCar.gameObject.SetActive(true);
+            return playerCar;
+        }
 
-
-            GameObject opponentCar = Instantiate(opponentPrefab, parent: GameManager.Instance.World);
+        private GameObject SpawnOpponent()
+        {
+            GameObject opponentCar;
+            if (GameManager.HasInstance && GameManager.Instance.OpponentCarController != null)
+            {
+                opponentCar = GameManager.Instance.OpponentCarController.gameObject;
+            }
+            else
+            {
+                opponentCar = Instantiate(opponentPrefab, parent: GameManager.Instance.World);
+            }
+            opponentCar.gameObject.SetActive(false);
             opponentCar.transform.SetPositionAndRotation(spawnOpponentPosition.position, Quaternion.identity);
-            opponentCar.GetComponent<OpponentAI>().checkpoints = checkpointManager.Checkpoints;
-            object param = Tuple.Create((object)playerCar.GetComponent<CarController>(), (object)opponentCar.GetComponent<CarController>());
-            //new object());
-            this.Broadcast(EventID.OnSpawnedGameobjects, param);
+            opponentCar.gameObject.SetActive(true);
+            return opponentCar;
         }
     }
 }

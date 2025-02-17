@@ -199,7 +199,7 @@
                 "forceIncluded": true
             }
         ],
-        "disableRuntimeAnalysisForCode": true,
+        "disableRuntimeAnalysisForCode": false,
         "disableRuntimeAnalysisForShaders": false,
         "useShadersCache": true,
         "preventUpdatingRAListWhenRAIsDisabled": false,
@@ -1559,10 +1559,6 @@
             },
             {
                 "name": "UnityEngine.ControllerColliderHit",
-                "excluded": true
-            },
-            {
-                "name": "UnityEngine.CustomYieldInstruction",
                 "excluded": true
             },
             {
@@ -8416,6 +8412,14 @@
             {
                 "name": "DG.Tweening.Plugins.Core.ITPlugin$4",
                 "excluded": false
+            },
+            {
+                "name": "Game.Car.CarCollision",
+                "excluded": true
+            },
+            {
+                "name": "Game.AI.OpponentAIController",
+                "excluded": true
             }
         ],
         "unusedMethods": [
@@ -20582,6 +20586,10 @@
                     {
                         "name": "CheckInstance",
                         "excluded": false
+                    },
+                    {
+                        "name": "CheckHasInstance",
+                        "excluded": true
                     }
                 ]
             },
@@ -20750,38 +20758,6 @@
                     {
                         "name": "init",
                         "excluded": false
-                    },
-                    {
-                        "name": "Screens#get",
-                        "excluded": true
-                    },
-                    {
-                        "name": "Popups#get",
-                        "excluded": true
-                    },
-                    {
-                        "name": "Notifies#get",
-                        "excluded": true
-                    },
-                    {
-                        "name": "Overlaps#get",
-                        "excluded": true
-                    },
-                    {
-                        "name": "CurScreen#get",
-                        "excluded": true
-                    },
-                    {
-                        "name": "CurPopup#get",
-                        "excluded": true
-                    },
-                    {
-                        "name": "CurNotify#get",
-                        "excluded": true
-                    },
-                    {
-                        "name": "CurOverlap#get",
-                        "excluded": true
                     },
                     {
                         "name": "GetNewScreen",
@@ -31594,14 +31570,6 @@
                 "staticMethods": [],
                 "instanceMethods": [
                     {
-                        "name": "MovementController#get",
-                        "excluded": false
-                    },
-                    {
-                        "name": "MovementController#set",
-                        "excluded": true
-                    },
-                    {
                         "name": "Start",
                         "excluded": false
                     },
@@ -31618,8 +31586,20 @@
                         "excluded": false
                     },
                     {
-                        "name": "OnTriggerEnter",
-                        "excluded": false
+                        "name": "init",
+                        "excluded": true
+                    },
+                    {
+                        "name": "Update",
+                        "excluded": true
+                    },
+                    {
+                        "name": "ControlCoordinate",
+                        "excluded": true
+                    },
+                    {
+                        "name": "ResetController",
+                        "excluded": true
                     }
                 ]
             },
@@ -31644,15 +31624,7 @@
                         "excluded": false
                     },
                     {
-                        "name": "Update",
-                        "excluded": false
-                    },
-                    {
                         "name": "FixedUpdate",
-                        "excluded": false
-                    },
-                    {
-                        "name": "GetDirectionFromJoyStick",
                         "excluded": false
                     },
                     {
@@ -31668,12 +31640,28 @@
                         "excluded": false
                     },
                     {
-                        "name": "ApplyTraction",
+                        "name": "ResetMovement",
                         "excluded": false
                     },
                     {
-                        "name": "ResetMovement",
-                        "excluded": false
+                        "name": "DirectionVector#get",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DirectionVector#set",
+                        "excluded": true
+                    },
+                    {
+                        "name": "KeepGettingInput#get",
+                        "excluded": true
+                    },
+                    {
+                        "name": "OnEnable",
+                        "excluded": true
+                    },
+                    {
+                        "name": "OnDrawGizmos",
+                        "excluded": true
                     }
                 ]
             },
@@ -31696,6 +31684,18 @@
                     {
                         "name": "init",
                         "excluded": false
+                    },
+                    {
+                        "name": "OnEnable",
+                        "excluded": true
+                    },
+                    {
+                        "name": "OnDisable",
+                        "excluded": true
+                    },
+                    {
+                        "name": "PlayImpactVFX",
+                        "excluded": true
                     }
                 ]
             },
@@ -31716,6 +31716,14 @@
                     {
                         "name": "Spawn",
                         "excluded": false
+                    },
+                    {
+                        "name": "SpawnPlayer",
+                        "excluded": true
+                    },
+                    {
+                        "name": "SpawnOpponent",
+                        "excluded": true
                     }
                 ]
             },
@@ -31760,19 +31768,7 @@
                 "staticMethods": [],
                 "instanceMethods": [
                     {
-                        "name": "IsInited#get",
-                        "excluded": true
-                    },
-                    {
                         "name": "IsHide#get",
-                        "excluded": true
-                    },
-                    {
-                        "name": "CanvasGroup#get",
-                        "excluded": false
-                    },
-                    {
-                        "name": "UIType#get",
                         "excluded": true
                     },
                     {
@@ -32036,6 +32032,10 @@
                     {
                         "name": "Show",
                         "excluded": false
+                    },
+                    {
+                        "name": "GetJoystickInput",
+                        "excluded": true
                     }
                 ]
             },
@@ -32709,7 +32709,7 @@
                 "instanceMethods": [
                     {
                         "name": "Current#get",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "ctor",
@@ -32717,7 +32717,7 @@
                     },
                     {
                         "name": "getCurrent",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "getCurrent$1",
@@ -33826,6 +33826,50 @@
                     {
                         "name": "OnReplayBtnClicked",
                         "excluded": false
+                    },
+                    {
+                        "name": "InvokeOnComplete",
+                        "excluded": true
+                    }
+                ]
+            },
+            {
+                "className": "UnityEngine.CustomYieldInstruction",
+                "staticMethods": [],
+                "instanceMethods": [
+                    {
+                        "name": "Current#get",
+                        "excluded": true
+                    },
+                    {
+                        "name": "moveNext",
+                        "excluded": true
+                    },
+                    {
+                        "name": "reset",
+                        "excluded": true
+                    }
+                ]
+            },
+            {
+                "className": "Game.RaceTrack.CheckpointManager",
+                "staticMethods": [],
+                "instanceMethods": [
+                    {
+                        "name": "Checkpoints#get",
+                        "excluded": true
+                    },
+                    {
+                        "name": "init",
+                        "excluded": false
+                    },
+                    {
+                        "name": "Awake",
+                        "excluded": true
+                    },
+                    {
+                        "name": "FindCheckpoints",
+                        "excluded": true
                     }
                 ]
             }

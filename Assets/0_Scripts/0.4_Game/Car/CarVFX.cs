@@ -9,9 +9,21 @@ namespace Game.Car
     {
         public ParticleSystem driftSmokeVFX = null;
         public ParticleSystem[] dirtTrailVFXs = null;
+        public ParticleSystem impactVFX = null;
         public float minVelocityToDisplayDirt = 0f;
         public CarMovement carMovement = null;
+        public CarCollision carCollision = null;
 
+
+        private void OnEnable()
+        {
+            carCollision.onCollision += PlayImpactVFX;
+        }
+
+        private void OnDisable()
+        {
+            carCollision.onCollision -= PlayImpactVFX;
+        }
 
         private void Update()
         {
@@ -49,6 +61,12 @@ namespace Game.Car
             {
                 driftSmokeVFX.Play();
             }
+        }
+
+        private void PlayImpactVFX(Vector3 position)
+        {
+            impactVFX.transform.position = position;
+            impactVFX.Play();
         }
     }
 }

@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Commons;
 
 
 namespace Game.RaceTrack
@@ -28,6 +29,7 @@ namespace Game.RaceTrack
         private void OnStartInitGame(object obj)
         {
             if (carSpawner == null) return;
+            LogUtility.Info("RaceTrackController", "OnStartInitGame");
             carSpawner?.Spawn();
         }
         

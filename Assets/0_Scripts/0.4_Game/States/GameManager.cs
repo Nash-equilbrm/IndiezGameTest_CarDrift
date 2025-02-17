@@ -1,3 +1,4 @@
+using Commons;
 using Game.Car;
 using Game.RaceTrack;
 using Game.States;
@@ -28,7 +29,8 @@ namespace Game
         private GameplayState _gameplayState = null;
         private FinishGameState _finishGameState = null;
 
-        public CarController CarController { get; set; }
+        [field: SerializeField] public CarController CarController { get; set; }
+        [field: SerializeField] public CarController OpponentCarController { get; set; }
         #endregion
 
 
@@ -48,21 +50,25 @@ namespace Game
         #region Change States
         public void ChangeToStartGameState()
         {
+            LogUtility.Info("ChangeToStartGameState");
             _stateMachine.ChangeState(_startGameState);
         }
 
         public void ChangeToGameplayState()
         {
+            LogUtility.Info("ChangeToGameplayState");
             _stateMachine.ChangeState(_gameplayState);
         }
 
         public void ChangeToFinishGameState()
         {
+            LogUtility.Info("ChangeToFinishGameState");
             _stateMachine.ChangeState(_finishGameState);
         }
 
         public void ChangeToInitGameState()
         {
+            LogUtility.Info("ChangeToInitGameState");
             _stateMachine.ChangeState(_initGameState);
         }
 

@@ -20,12 +20,12 @@ namespace Game.RaceTrack
             }
         }
 
-        private int _nextCheckpointIndex = 0;
+        //private int _nextCheckpointIndex = 0;
 
-        public int NextCheckpointIndex
-        {
-            get { return _nextCheckpointIndex; }
-        }
+        //public int NextCheckpointIndex
+        //{
+        //    get { return _nextCheckpointIndex; }
+        //}
 
 
         private void Awake()
@@ -34,32 +34,32 @@ namespace Game.RaceTrack
             {
                 FindCheckpoints();
             }
-            _nextCheckpointIndex = 0;
+            //_nextCheckpointIndex = 0;
         }
 
-        private void OnEnable()
-        {
-            this.Register(EventID.OnHitCheckpoint, OnHitCheckpoint);
-            this.Register(EventID.OnStartInitGame, OnStartInitGame);
-        }
+        //private void OnEnable()
+        //{
+        //    this.Register(EventID.OnHitCheckpoint, OnHitCheckpoint);
+        //    this.Register(EventID.OnStartInitGame, OnStartInitGame);
+        //}
 
 
-        private void OnDisable()
-        {
-            this.Unregister(EventID.OnHitCheckpoint, OnHitCheckpoint);
-            this.Unregister(EventID.OnStartInitGame, OnStartInitGame);
-        }
+        //private void OnDisable()
+        //{
+        //    this.Unregister(EventID.OnHitCheckpoint, OnHitCheckpoint);
+        //    this.Unregister(EventID.OnStartInitGame, OnStartInitGame);
+        //}
 
-        private void OnStartInitGame(object obj)
-        {
-            _nextCheckpointIndex = 0;
-        }
+        //private void OnStartInitGame(object obj)
+        //{
+        //    _nextCheckpointIndex = 0;
+        //}
 
-        private void OnHitCheckpoint(object obj)
-        {
-            if (_nextCheckpointIndex == _checkpoints.Count - 1) return;
-            _nextCheckpointIndex++;
-        }
+        //private void OnHitCheckpoint(object obj)
+        //{
+        //    if (_nextCheckpointIndex == _checkpoints.Count - 1) return;
+        //    _nextCheckpointIndex++;
+        //}
 
         private void FindCheckpoints()
         {

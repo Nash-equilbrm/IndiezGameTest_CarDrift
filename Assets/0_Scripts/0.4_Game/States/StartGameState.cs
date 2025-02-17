@@ -1,3 +1,5 @@
+using Commons;
+using Game.Car;
 using Game.UI;
 using Patterns;
 using System;
@@ -16,14 +18,15 @@ namespace Game.States
         {
             base.Enter();
             _context.Register(EventID.FinishCounting, OnStartGameplay);
-            UIManager.Instance.ShowOverlap<GameplayOverlap>(data: _context.CarController, forceShowData: true);
-
+            Tuple<CarController, CarController> data = Tuple.Create(_context.CarController, _context.OpponentCarController);
+            UIManager.Instance.ShowOverlap<GameplayOverlap>(data: data, forceShowData: true);
             _context.Broadcast(EventID.OnGameStartCounting);
         }
 
         public override void Exit()
         {
             base.Exit();
+            //_context.Unregister(EventID.FinishCounting, OnStartGameplay);
             _context.Unregister(EventID.FinishCounting, OnStartGameplay);
         }
 

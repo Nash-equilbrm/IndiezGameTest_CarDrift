@@ -45,6 +45,7 @@ namespace Game.States
         {
             var tuple = (Tuple<object, object>)obj;
             _context.CarController = tuple.Item1 as CarController;
+            _context.OpponentCarController = tuple.Item2 as CarController;
 
             _context.ChangeToStartGameState();
         }

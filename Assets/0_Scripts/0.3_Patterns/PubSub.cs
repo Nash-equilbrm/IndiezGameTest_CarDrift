@@ -15,9 +15,7 @@ namespace Patterns
             if (action == null) { return; }
             if (listeners.ContainsKey(id))
             {
-                if (listeners[id] != null)
-                    if (!listeners[id].GetInvocationList().Contains(action))
-                        listeners[id] += action;
+                listeners[id] += action;
             }
             else
             {
@@ -40,7 +38,7 @@ namespace Patterns
                 listeners.Remove(id);
             }
         }
-        public void Broadcast(EventID id, object? data)
+        public void Broadcast(EventID id, object data = null)
         {
             if (listeners.ContainsKey(id))
             {
@@ -55,14 +53,15 @@ namespace Patterns
         {
             if (PubSub.HasInstance)
             {
+                LogUtility.ValidInfo("Register", $"{listener.name} register {id} with {action.Method.Name}");
                 PubSub.Instance.Register(id, action);
             }
-            else LogUtility.Error("Register", "No Instance");
         }
         public static void Unregister(this MonoBehaviour listener, EventID id, Action<object> action)
         {
             if (PubSub.HasInstance)
             {
+                LogUtility.InvalidInfo("Unregister", $"{listener.name} register {id} with {action.Method.Name}");
                 PubSub.Instance.Unregister(id, action);
             }
         }
@@ -77,6 +76,7 @@ namespace Patterns
         {
             if (PubSub.HasInstance)
             {
+                LogUtility.NotificationInfo("Broadcast", $"{listener.name} Broadcast {id}");
                 PubSub.Instance.Broadcast(id, null);
             }
         }
