@@ -136,7 +136,12 @@ namespace Game.UI
         {
             return eventData.position;
         }
-        public Vector2 JoystickInput => _input;
+        public Vector2 JoystickInput { 
+            get
+            {
+                return _input;
+            }
+        }
 
 
 

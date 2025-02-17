@@ -14,6 +14,10 @@ namespace Game.Car
         [LunaPlaygroundField("drag", 5, "Car Settings")] public float drag = .98f;
         [LunaPlaygroundField("driftAngleThreshold", 6, "Car Settings")] public float driftAngleThreshold = 10f;
         [LunaPlaygroundField("steeringThreshold", 7, "Car Settings")] public float steeringThreshold = 0.01f;
+        public float maxSpeedAfterCollision = 5f;
+        public float pushForce = 1f;
+        public float dragCoefficient = 1f;
+        public float tractionCoefficient = 1f;
         public Rigidbody rb = null;
 
         public Transform coordinateUI = null;
@@ -27,9 +31,17 @@ namespace Game.Car
 
 
         public bool keepGettingInput = false;
-        public float CurrentSpeedSqr => rb.velocity.sqrMagnitude;
 
-        public bool IsDrifting => keepGettingInput ? Vector3.Angle(rb.velocity, transform.forward) > driftAngleThreshold : false;
+        public float CurrentSpeedSqr
+        {
+            get { return rb.velocity.sqrMagnitude; }
+        }
+
+
+        public bool IsDrifting
+        {
+            get { return keepGettingInput ? Vector3.Angle(rb.velocity, transform.forward) > driftAngleThreshold : false; }
+        }
 
         //public float curSpeed;
 
@@ -46,18 +58,17 @@ namespace Game.Car
         {
             GetDirectionFromJoyStick();
             Steer();
+            if (!keepGettingInput)
+            {
+                ApplyDrag();
+            }
         }
+
 
         private void FixedUpdate()
         {
             Move();
             ApplyTraction();
-
-            if (!keepGettingInput)
-            {
-                Drag();
-            }
-
             //curSpeed = _rb.velocity.magnitude;
         }
 
@@ -81,7 +92,6 @@ namespace Game.Car
             lookDirection.y = 0;
             coordinateUI.rotation = Quaternion.LookRotation(lookDirection, Vector3.up);
             _directionVector = coordinateUI.forward;
-            //if(GameManager.Instance.logCar) LogUtility.Info("Carmovement Update", $"GetDirectionFromJoyStick : {input}");
         }
 
         private void Move()
@@ -100,7 +110,7 @@ namespace Game.Car
 
 
 
-                rb.AddForce(transform.forward * acceleration, ForceMode.Acceleration);
+                rb.AddForce(transform.forward * adjustedAcceleration, ForceMode.Acceleration);
 
                 if (rb.velocity.magnitude > maxSpeed)
                 {
@@ -114,7 +124,6 @@ namespace Game.Car
 
         private void Steer()
         {
-            //if (_directionVector.sqrMagnitude > 0.01f)
             if(Vector3.Angle(_directionVector, transform.forward) > steeringThreshold)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(_directionVector);
@@ -127,35 +136,58 @@ namespace Game.Car
                 {
                     transform.rotation = targetRotation;
                 }
-                //if (GameManager.Instance.logCar) LogUtility.Info("Carmovement Update", $"Steering, angle = {Vector3.Angle(_directionVector, transform.forward)}");
             }
         }
 
-        private void Drag()
+        //private void ApplyDrag()
+        //{
+        //    rb.velocity *= drag;
+        //    if (rb.velocity.sqrMagnitude < 0.01f)
+        //    {
+        //        rb.velocity = Vector3.zero;
+        //    }
+        //}
+
+        //private void ApplyTraction()
+        //{
+        //    rb.velocity = Vector3.Lerp(rb.velocity.normalized, _directionVector, traction * Time.fixedDeltaTime) * rb.velocity.magnitude;
+        //}
+
+        public void OnCollistion(Collision collision)
         {
-            rb.velocity *= drag;
-            if (rb.velocity.sqrMagnitude < 0.01f)
-            {
-                rb.velocity = Vector3.zero;
-            }
-            //LogUtility.Info("Carmovement FixedUpdate", $"Drag: {rb.velocity}");
+            rb.velocity *= 0.5f;
+            Vector3 normal = collision.contacts[0].normal;
+            rb.AddForce(normal * pushForce, ForceMode.Impulse);
+
+            rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeedAfterCollision); // maxSpeedAfterCollision < maxSpeed
+        }
+
+        private void ApplyDrag()
+        {
+            float dragForceMagnitude = rb.velocity.sqrMagnitude * dragCoefficient;
+            Vector3 dragForce = -rb.velocity.normalized * dragForceMagnitude;
+            rb.AddForce(dragForce, ForceMode.Acceleration);
         }
 
         private void ApplyTraction()
         {
-            rb.velocity = Vector3.Lerp(rb.velocity.normalized, _directionVector, traction * Time.deltaTime) * rb.velocity.magnitude;
-            //if (GameManager.Instance.logCar) LogUtility.Info("Carmovement FixedUpdate", $"ApplyTraction: {rb.velocity}");
+            Vector3 forwardVelocity = Vector3.Project(rb.velocity, transform.forward);
+            Vector3 sidewaysVelocity = rb.velocity - forwardVelocity;
+
+            float tractionForceMagnitude = sidewaysVelocity.magnitude * tractionCoefficient;
+            Vector3 tractionForce = -sidewaysVelocity.normalized * tractionForceMagnitude;
+            rb.AddForce(tractionForce, ForceMode.Acceleration);
         }
 
-        //private void OnDrawGizmos()
-        //{
-        //    Gizmos.color = Color.red;
-        //    Gizmos.DrawLine(transform.position, transform.position + rb.velocity);
-        //    Gizmos.color = Color.green;
-        //    Gizmos.DrawLine(transform.position, transform.position + transform.forward * 3);
-        //    Gizmos.color = Color.blue;
-        //    Gizmos.DrawLine(transform.position, transform.position + _directionVector * 3);
-        //}
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(transform.position, transform.position + rb.velocity);
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(transform.position, transform.position + transform.forward * 3);
+            Gizmos.color = Color.blue;
+            Gizmos.DrawLine(transform.position, transform.position + _directionVector * 3);
+        }
 
         public void ResetMovement()
         {
@@ -165,128 +197,3 @@ namespace Game.Car
         }
     }
 }
-
-
-//using Commons;
-//using DG.Tweening;
-//using System;
-//using UnityEngine;
-
-
-//namespace Game.Car
-//{
-//    public class CarMovement : MonoBehaviour
-//    {
-//        [LunaPlaygroundField("acceleration", 1, "Car Settings")] public float acceleration = 10;
-//        [LunaPlaygroundField("maxSpeed", 2, "Car Settings")] public float maxSpeed = 15;
-//        [LunaPlaygroundField("drag", 3, "Car Settings")] public float drag = 0.98f;
-//        [LunaPlaygroundField("steerSpeed", 4, "Car Settings")] public float steerSpeed = 100;
-//        [LunaPlaygroundField("traction", 5, "Car Settings")] public float traction = 0.01f;
-//        [LunaPlaygroundField("driftAngleThreshold", 6, "Car Settings")] public float driftAngleThreshold = 20f;
-//        public Transform coordinateUI;
-
-//        public Func<Vector2> onGetInputValue;
-//        private Vector2 _input;
-//        private Vector2 _lastInput;
-
-//        private Vector3 _directionVector;
-//        private Vector3 _velocity;
-
-//        public bool keepGettingInput;
-
-//        public float CurrentSpeedSqr => _velocity.sqrMagnitude;
-//        public bool IsDrifting => keepGettingInput ? Vector3.Angle(_velocity, transform.forward) > driftAngleThreshold : false;
-
-//        private void Update()
-//        {
-//            GetDirectionFromJoyStick();
-//            Steer();
-//            ApplyTraction();
-//        }
-
-//        private void FixedUpdate()
-//        {
-//            Move();
-//        }
-
-
-//        private void GetDirectionFromJoyStick()
-//        {
-//            if (coordinateUI is null || onGetInputValue is null) return;
-
-//            _input = keepGettingInput ? onGetInputValue.Invoke() : Vector2.zero;
-
-//            Vector3 lookDirection;
-//            if (_input == Vector2.zero)
-//                lookDirection = Camera.main.transform.TransformDirection(_lastInput);
-//            else
-//            {
-//                lookDirection = Camera.main.transform.TransformDirection(_input);
-//                _lastInput = _input;
-//            }
-
-
-//            lookDirection.y = 0;
-//            coordinateUI.rotation = Quaternion.LookRotation(lookDirection, Vector3.up);
-//            _directionVector = coordinateUI.forward;
-
-//        }
-
-
-//        private void Move()
-//        {
-//            if (!keepGettingInput) return;
-//            // Newton's law
-//            _velocity += transform.forward * acceleration * Time.fixedDeltaTime;
-//            _velocity = Vector3.ClampMagnitude(_velocity, maxSpeed);
-//            transform.position += _velocity * Time.fixedDeltaTime;
-//        }
-
-
-
-
-//        private void Steer()
-//        {
-//            if (_directionVector.sqrMagnitude > 0.01f
-//                && _directionVector != transform.forward)
-//            {
-//                Quaternion targetRotation = Quaternion.LookRotation(_directionVector);
-//                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, steerSpeed * Time.deltaTime);
-//                Drag();
-//            }
-//        }
-
-
-//        private void Drag()
-//        {
-//            _velocity *= drag;
-//            _velocity = Vector3.ClampMagnitude(_velocity, maxSpeed);
-//        }
-
-
-//        private void ApplyTraction()
-//        {
-//            _velocity = Vector3.Lerp(_velocity.normalized, transform.forward, traction * Time.deltaTime) * _velocity.magnitude;
-//        }
-
-
-
-//        private void OnDrawGizmos()
-//        {
-//            Gizmos.color = Color.red;
-//            Gizmos.DrawLine(transform.position, transform.position + _velocity);
-//            Gizmos.color = Color.green;
-//            Gizmos.DrawLine(transform.position, transform.position + transform.forward * 3);
-//            Gizmos.color = Color.blue;
-//            Gizmos.DrawLine(transform.position, transform.position + _directionVector * 3);
-//        }
-
-//        public void ResetMovement()
-//        {
-//            _lastInput = Vector2.zero;
-//            _velocity = Vector3.zero;
-//            keepGettingInput = true;
-//        }
-
-//    }
-//}

@@ -38,7 +38,14 @@ namespace Game.CameraUtils
 
             transform.position = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
 
-            transform.LookAt(_target.position);
+            //transform.LookAt(_target.position);
+
+            Vector3 direction = _target.position - transform.position;
+            if (direction != Vector3.zero)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, smoothSpeed * Time.deltaTime);
+            }
         }
 
         private IEnumerator IERegisterEvents()

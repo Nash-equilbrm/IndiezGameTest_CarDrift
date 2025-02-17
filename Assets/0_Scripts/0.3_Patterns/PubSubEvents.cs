@@ -17,6 +17,7 @@ namespace Patterns
         OnHitFinishLine,
         OnFinishGame,
         OnReplayBtnClicked,
+        OnHitCheckpoint,
         #endregion
 
         #region UI

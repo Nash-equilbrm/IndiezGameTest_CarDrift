@@ -25,20 +25,11 @@ namespace UI
         private Dictionary<string, BaseNotify> _notifies = new Dictionary<string, BaseNotify>();
         private Dictionary<string, BaseOverlap> _overlaps = new Dictionary<string, BaseOverlap>();
 
-        public Dictionary<string, BaseScreen> Screens => _screens;
-        public Dictionary<string, BasePopup> Popups => _popups;
-        public Dictionary<string, BaseNotify> Notifies => _notifies;
-        public Dictionary<string, BaseOverlap> Overlaps => _overlaps;
-
         private BaseScreen _curScreen;
         private BasePopup _curPopup;
         private BaseNotify _curNotify;
         private BaseOverlap _curOverlap;
 
-        public BaseScreen CurScreen => _curScreen;
-        public BasePopup CurPopup => _curPopup;
-        public BaseNotify CurNotify => _curNotify;
-        public BaseOverlap CurOverlap => _curOverlap;
 
         //private const string SCREEN_RESOURCES_PATH = "Prefabs/UI/Screen/";
         //private const string POPUP_RESOURCES_PATH = "Prefabs/UI/Popup/";
@@ -477,22 +468,46 @@ namespace UI
                 {
                     case UIType.Screen:
                         {
-                            result = screenPrefabs.Find((p) => p.name == uiName).prefab;
+                            for (int i = 0; i < screenPrefabs.Count; i++)
+                            {
+                                if (screenPrefabs[i].name == uiName)
+                                {
+                                    result = screenPrefabs[i].prefab;
+                                }
+                            }
                         }
                         break;
                     case UIType.Popup:
                         {
-                            result = popupPrefabs.Find((p) => p.name == uiName).prefab;
+                            for (int i = 0; i < popupPrefabs.Count; i++)
+                            {
+                                if (popupPrefabs[i].name == uiName)
+                                {
+                                    result = popupPrefabs[i].prefab;
+                                }
+                            }
                         }
                         break;
                     case UIType.Notify:
                         {
-                            result = notifyPrefabs.Find((p) => p.name == uiName).prefab;
+                            for (int i = 0; i < notifyPrefabs.Count; i++)
+                            {
+                                if (notifyPrefabs[i].name == uiName)
+                                {
+                                    result = notifyPrefabs[i].prefab;
+                                }
+                            }
                         }
                         break;
                     case UIType.Overlap:
                         {
-                            result = overlapPrefabs.Find((p) => p.name == uiName).prefab;
+                            for (int i = 0; i < overlapPrefabs.Count; i++)
+                            {
+                                if (overlapPrefabs[i].name == uiName)
+                                {
+                                    result = overlapPrefabs[i].prefab;
+                                }
+                            }
                         }
                         break;
                 }

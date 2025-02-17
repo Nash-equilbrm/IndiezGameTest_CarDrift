@@ -30,7 +30,12 @@ namespace Game.UI
             CarController controller = (CarController)data;
             _carMovementController = controller.MovementController;
             if (!_carMovementController) return;
-            _carMovementController.onGetInputValue = () => joystick.JoystickInput;
+            _carMovementController.onGetInputValue = GetJoystickInput;
+        }
+
+        private Vector2 GetJoystickInput()
+        {
+            return joystick.JoystickInput;
         }
     }
 }

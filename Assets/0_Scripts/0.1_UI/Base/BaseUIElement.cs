@@ -11,10 +11,10 @@ namespace UI
         protected bool isHide;
         private bool isInited;
 
-        public bool IsInited => isInited;
-        public bool IsHide => isHide;
-        public CanvasGroup CanvasGroup => canvasGroup;
-        public UIType UIType => uiType;
+        public bool IsHide
+        {
+            get { return isHide; }
+        }
 
         public virtual void Init()
         {
@@ -47,10 +47,10 @@ namespace UI
 
         private void SetActiveCanvasGroup(bool isActive)
         {
-            if (CanvasGroup != null)
+            if (canvasGroup != null)
             {
-                CanvasGroup.blocksRaycasts = isActive;
-                CanvasGroup.alpha = isActive ? 1 : 0;
+                canvasGroup.blocksRaycasts = isActive;
+                canvasGroup.alpha = isActive ? 1 : 0;
             }
         }
     }

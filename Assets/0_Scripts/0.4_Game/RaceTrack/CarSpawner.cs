@@ -1,3 +1,4 @@
+using Game.AI;
 using Game.Car;
 using Patterns;
 using System;
@@ -14,7 +15,7 @@ namespace Game.RaceTrack
         public GameObject opponentPrefab = null;
         public Transform spawnPlayerPosition = null;
         public Transform spawnOpponentPosition = null;
-
+        public CheckpointManager checkpointManager = null;
 
         public void Spawn()
         {
@@ -32,10 +33,11 @@ namespace Game.RaceTrack
             playerCar.gameObject.SetActive(true);
 
 
-            //GameObject opponentCar = Instantiate(opponentPrefab, parent: GameManager.Instance.World);
-            //opponentCar.transform.SetPositionAndRotation(spawnOpponentPosition.position, Quaternion.identity);
-            object param = Tuple.Create((object)playerCar.GetComponent<CarController>(), new object());
-            //(object)opponentCar.GetComponent<CarController>());
+            GameObject opponentCar = Instantiate(opponentPrefab, parent: GameManager.Instance.World);
+            opponentCar.transform.SetPositionAndRotation(spawnOpponentPosition.position, Quaternion.identity);
+            opponentCar.GetComponent<OpponentAI>().checkpoints = checkpointManager.Checkpoints;
+            object param = Tuple.Create((object)playerCar.GetComponent<CarController>(), (object)opponentCar.GetComponent<CarController>());
+            //new object());
             this.Broadcast(EventID.OnSpawnedGameobjects, param);
         }
     }

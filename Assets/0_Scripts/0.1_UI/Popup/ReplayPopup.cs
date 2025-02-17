@@ -15,10 +15,11 @@ namespace Game.UI
         public float animDuration;
         public Ease animEase;
 
+        private Action onComplete;
 
         public override void Hide()
         {
-            DoAnimationHide(() => base.Hide());
+            DoAnimationHide(base.Hide);
         }
 
         public override void Init()
@@ -36,12 +37,36 @@ namespace Game.UI
 
         private void DoAnimationShow(Action onComplete = null)
         {
-            var sq = DOTween.Sequence().Join(canvasGroup.DOFade(1, animDuration).SetEase(animEase)).Join((playAgainBtn.transform as RectTransform).DOAnchorPos(Vector2.zero, animDuration).SetEase(animEase)).OnComplete(() => onComplete?.Invoke()).SetAutoKill(true);
+            Sequence sq = DOTween.Sequence();
+            this.onComplete = onComplete;
+
+            sq.Join(canvasGroup.DOFade(1, animDuration).SetEase(animEase));
+
+            RectTransform playAgainRect = playAgainBtn.transform as RectTransform;
+            if (playAgainRect != null)
+            {
+                sq.Join(playAgainRect.DOAnchorPos(Vector2.zero, animDuration).SetEase(animEase));
+            }
+
+            sq.OnComplete(InvokeOnComplete);
+            sq.SetAutoKill(true);
         }
 
         private void DoAnimationHide(Action onComplete)
         {
-            var sq = DOTween.Sequence().Join(canvasGroup.DOFade(0, animDuration).SetEase(animEase)).Join((playAgainBtn.transform as RectTransform).DOAnchorPos(new Vector2(0, -100f), animDuration).SetEase(animEase)).OnComplete(() => onComplete?.Invoke()).SetAutoKill(true);
+            Sequence sq = DOTween.Sequence();
+            this.onComplete = onComplete;
+
+            sq.Join(canvasGroup.DOFade(0, animDuration).SetEase(animEase));
+
+            RectTransform playAgainRect = playAgainBtn.transform as RectTransform;
+            if (playAgainRect != null)
+            {
+                sq.Join(playAgainRect.DOAnchorPos(new Vector2(0, -100f), animDuration).SetEase(animEase));
+            }
+
+            sq.OnComplete(InvokeOnComplete);
+            sq.SetAutoKill(true);
         }
 
 
@@ -49,6 +74,14 @@ namespace Game.UI
         {
             this.Broadcast(EventID.OnReplayBtnClicked);
             Hide();
+        }
+
+        private void InvokeOnComplete()
+        {
+            if (onComplete != null)
+            {
+                onComplete.Invoke();
+            }
         }
     }
 }

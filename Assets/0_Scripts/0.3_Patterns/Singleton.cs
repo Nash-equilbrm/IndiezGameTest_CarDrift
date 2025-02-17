@@ -29,7 +29,13 @@ namespace Patterns
         {
             CheckInstance();
         }
-        public static bool HasInstance => instance != null;
+        public static bool HasInstance 
+        {
+            get
+            {
+                return instance != null;
+            }
+        }
 
         protected bool CheckInstance()
         {
@@ -53,10 +59,15 @@ namespace Patterns
             context.StartCoroutine(IEWaitForInstance(callback));
         }
 
+        private static bool CheckHasInstance()
+        {
+            return HasInstance;
+        }
+
         private static IEnumerator IEWaitForInstance(Action callback)
         {
-            yield return new WaitUntil(() => HasInstance);
-            callback?.Invoke();
+            yield return new WaitUntil(CheckHasInstance);
+            callback.Invoke();
         }
     }
 }

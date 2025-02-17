@@ -21,8 +21,7 @@ namespace Patterns
             }
             else
             {
-                listeners.Add(id, (obj) => { });
-                listeners[id] += action;
+                listeners.Add(id, action);
             }
         }
         public void Unregister(EventID id, Action<object> action)

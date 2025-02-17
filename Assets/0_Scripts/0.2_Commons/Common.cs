@@ -4,8 +4,21 @@ namespace Commons
 {
     public static class Common
     {
-        public static float ScreenWidthInUnit => Camera.main.orthographicSize * 2 * Screen.width / Screen.height;
-        public static float ScreenHeightInUnit => Camera.main.orthographicSize * 2;
+        public static float ScreenWidthInUnit
+        {
+            get
+            {
+                return Camera.main.orthographicSize * 2 * Screen.width / Screen.height;
+            }
+        }
+        public static float ScreenHeightInUnit
+        {
+            get
+            {
+                return Camera.main.orthographicSize * 2;
+            }
+        }
+
 
         //public static T ReadJson<T>(string filePath)
         //{
