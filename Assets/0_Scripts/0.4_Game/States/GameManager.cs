@@ -1,4 +1,5 @@
 using Commons;
+using Game.Audio;
 using Game.Car;
 using Game.RaceTrack;
 using Game.States;
@@ -19,8 +20,9 @@ namespace Game
         public Transform Managers = null;
         #endregion
         public CarSpawner carSpawner = null;
+        public AudioController audioController = null;
 
-
+        public string StateName;
         private StateMachine<GameManager> _stateMachine = new StateMachine<GameManager>();
 
         #region States
@@ -34,16 +36,20 @@ namespace Game
         public bool PlayerWin { get; set; } = true;
         #endregion
 
+        private void Update()
+        {
+            StateName = _stateMachine.CurrentState.name;
+        }
 
 
 
         private void Start()
         {
             LogUtility.Info("GameManager", "Start");
-            _initGameState = new InitGameState(this);
-            _startGameState = new StartGameState(this);
-            _gameplayState = new GameplayState(this);
-            _finishGameState = new FinishGameState(this);
+            _initGameState = new InitGameState(this, "Init State");
+            _startGameState = new StartGameState(this, "Start Game State");
+            _gameplayState = new GameplayState(this, "Play Game State");
+            _finishGameState = new FinishGameState(this, "End Game State");
 
             _stateMachine.Initialize(_initGameState);
         }

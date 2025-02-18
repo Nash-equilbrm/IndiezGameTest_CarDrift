@@ -67,5 +67,11 @@ namespace Game.AI
             _currentCheckpointIndex = -1;
             _currentCheckpoint = null;
         }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, checkpointArrivalDistance);
+        }
     }
 }
