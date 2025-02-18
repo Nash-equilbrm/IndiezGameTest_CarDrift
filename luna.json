@@ -2110,15 +2110,7 @@
                 "excluded": true
             },
             {
-                "name": "UnityEngine.Collision",
-                "excluded": true
-            },
-            {
                 "name": "UnityEngine.Collision2D",
-                "excluded": true
-            },
-            {
-                "name": "UnityEngine.ContactPoint",
                 "excluded": true
             },
             {
@@ -7122,15 +7114,7 @@
                 "excluded": true
             },
             {
-                "name": "DG.Tweening.TweenExtensions",
-                "excluded": true
-            },
-            {
                 "name": "DG.Tweening.TweenParams",
-                "excluded": true
-            },
-            {
-                "name": "DG.Tweening.Core.SequenceCallback",
                 "excluded": true
             },
             {
@@ -8412,14 +8396,6 @@
             {
                 "name": "DG.Tweening.Plugins.Core.ITPlugin$4",
                 "excluded": false
-            },
-            {
-                "name": "Game.Car.CarCollision",
-                "excluded": true
-            },
-            {
-                "name": "Game.AI.OpponentAIController",
-                "excluded": true
             }
         ],
         "unusedMethods": [
@@ -14841,7 +14817,7 @@
                     },
                     {
                         "name": "InternalErrorShaderMaterial#get",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "Blit",
@@ -16863,7 +16839,7 @@
                     },
                     {
                         "name": "GetChild",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "IsChildOf",
@@ -20572,14 +20548,6 @@
                         "excluded": false
                     },
                     {
-                        "name": "WaitForInstance",
-                        "excluded": true
-                    },
-                    {
-                        "name": "IEWaitForInstance",
-                        "excluded": true
-                    },
-                    {
                         "name": "Awake",
                         "excluded": false
                     },
@@ -20730,19 +20698,19 @@
                         "excluded": false
                     },
                     {
-                        "name": "Register",
+                        "name": "PSRegister",
                         "excluded": false
                     },
                     {
-                        "name": "Unregister",
+                        "name": "PSUnregister",
                         "excluded": false
                     },
                     {
-                        "name": "UnregisterAll",
+                        "name": "PSubUnregisterAll",
                         "excluded": true
                     },
                     {
-                        "name": "Broadcast",
+                        "name": "PSBroadcast",
                         "excluded": false
                     }
                 ]
@@ -23009,7 +22977,7 @@
                     },
                     {
                         "name": "name#set",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "mainTexture#get",
@@ -23033,7 +23001,7 @@
                     },
                     {
                         "name": "shader#set",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "passCount#get",
@@ -23081,7 +23049,7 @@
                     },
                     {
                         "name": "$ctor2",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "CopyPropertiesFromMaterial",
@@ -27021,7 +26989,7 @@
                     },
                     {
                         "name": "text#set",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "textPreprocessor#get",
@@ -30971,7 +30939,7 @@
                     },
                     {
                         "name": "Play",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "PlayBackwards",
@@ -31181,7 +31149,7 @@
                     },
                     {
                         "name": "AutoInit",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "SetTweensCapacity",
@@ -31560,7 +31528,7 @@
                         "excluded": false
                     },
                     {
-                        "name": "IERegisterEvents",
+                        "name": "RegisterEvents",
                         "excluded": false
                     }
                 ]
@@ -31587,19 +31555,19 @@
                     },
                     {
                         "name": "init",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "Update",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "ControlCoordinate",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "ResetController",
-                        "excluded": true
+                        "excluded": false
                     }
                 ]
             },
@@ -31617,14 +31585,6 @@
                     },
                     {
                         "name": "init",
-                        "excluded": false
-                    },
-                    {
-                        "name": "Awake",
-                        "excluded": false
-                    },
-                    {
-                        "name": "FixedUpdate",
                         "excluded": false
                     },
                     {
@@ -31649,19 +31609,35 @@
                     },
                     {
                         "name": "DirectionVector#set",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "KeepGettingInput#get",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "OnEnable",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "OnDrawGizmos",
                         "excluded": true
+                    },
+                    {
+                        "name": "Velocity#get",
+                        "excluded": false
+                    },
+                    {
+                        "name": "Velocity#set",
+                        "excluded": false
+                    },
+                    {
+                        "name": "Update",
+                        "excluded": false
+                    },
+                    {
+                        "name": "ApplyTraction",
+                        "excluded": false
                     }
                 ]
             },
@@ -31687,15 +31663,15 @@
                     },
                     {
                         "name": "OnEnable",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "OnDisable",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "PlayImpactVFX",
-                        "excluded": true
+                        "excluded": false
                     }
                 ]
             },
@@ -31719,11 +31695,11 @@
                     },
                     {
                         "name": "SpawnPlayer",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "SpawnOpponent",
-                        "excluded": true
+                        "excluded": false
                     }
                 ]
             },
@@ -31798,23 +31774,23 @@
                 "staticMethods": [],
                 "instanceMethods": [
                     {
-                        "name": "Register",
+                        "name": "PubSubRegister",
                         "excluded": false
                     },
                     {
-                        "name": "Unregister",
+                        "name": "PubSubUnregister",
                         "excluded": false
                     },
                     {
-                        "name": "UnregisterAll",
+                        "name": "PubSubUnregisterAll",
                         "excluded": true
                     },
                     {
-                        "name": "Broadcast",
+                        "name": "PubSubBroadcast",
                         "excluded": false
                     },
                     {
-                        "name": "Broadcast$1",
+                        "name": "PubSubBroadcast$1",
                         "excluded": false
                     }
                 ]
@@ -31990,7 +31966,7 @@
                         "excluded": false
                     },
                     {
-                        "name": "IEStartSpawnGameObjects",
+                        "name": "OnStartSpawnGameObjects",
                         "excluded": false
                     }
                 ]
@@ -32035,7 +32011,7 @@
                     },
                     {
                         "name": "GetJoystickInput",
-                        "excluded": true
+                        "excluded": false
                     }
                 ]
             },
@@ -32105,15 +32081,15 @@
                     },
                     {
                         "name": "NotificationInfo",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "ValidInfo",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "InvalidInfo",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "Warning",
@@ -32961,7 +32937,7 @@
                     },
                     {
                         "name": "$clone",
-                        "excluded": true
+                        "excluded": false
                     }
                 ]
             },
@@ -33299,7 +33275,7 @@
                     },
                     {
                         "name": "AppendInterval",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "PrependInterval",
@@ -33307,7 +33283,7 @@
                     },
                     {
                         "name": "AppendCallback",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "PrependCallback",
@@ -33547,7 +33523,7 @@
                     },
                     {
                         "name": "DoAppendInterval",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "DoPrependInterval",
@@ -33555,7 +33531,7 @@
                     },
                     {
                         "name": "DoInsertCallback",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "init",
@@ -33829,7 +33805,7 @@
                     },
                     {
                         "name": "InvokeOnComplete",
-                        "excluded": true
+                        "excluded": false
                     }
                 ]
             },
@@ -33857,7 +33833,7 @@
                 "instanceMethods": [
                     {
                         "name": "Checkpoints#get",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "init",
@@ -33865,11 +33841,335 @@
                     },
                     {
                         "name": "Awake",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "FindCheckpoints",
                         "excluded": true
+                    }
+                ]
+            },
+            {
+                "className": "DG.Tweening.TweenExtensions",
+                "staticMethods": [],
+                "instanceMethods": [
+                    {
+                        "name": "Complete",
+                        "excluded": true
+                    },
+                    {
+                        "name": "Complete$1",
+                        "excluded": true
+                    },
+                    {
+                        "name": "Flip",
+                        "excluded": true
+                    },
+                    {
+                        "name": "ForceInit",
+                        "excluded": true
+                    },
+                    {
+                        "name": "Goto",
+                        "excluded": true
+                    },
+                    {
+                        "name": "GotoWithCallbacks",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DoGoto",
+                        "excluded": true
+                    },
+                    {
+                        "name": "Kill",
+                        "excluded": true
+                    },
+                    {
+                        "name": "ManualUpdate",
+                        "excluded": true
+                    },
+                    {
+                        "name": "Pause",
+                        "excluded": true
+                    },
+                    {
+                        "name": "Play",
+                        "excluded": false
+                    },
+                    {
+                        "name": "PlayBackwards",
+                        "excluded": true
+                    },
+                    {
+                        "name": "PlayForward",
+                        "excluded": true
+                    },
+                    {
+                        "name": "Restart",
+                        "excluded": true
+                    },
+                    {
+                        "name": "Rewind",
+                        "excluded": true
+                    },
+                    {
+                        "name": "SmoothRewind",
+                        "excluded": true
+                    },
+                    {
+                        "name": "TogglePause",
+                        "excluded": true
+                    },
+                    {
+                        "name": "GotoWaypoint",
+                        "excluded": true
+                    },
+                    {
+                        "name": "WaitForCompletion",
+                        "excluded": true
+                    },
+                    {
+                        "name": "WaitForRewind",
+                        "excluded": true
+                    },
+                    {
+                        "name": "WaitForKill",
+                        "excluded": true
+                    },
+                    {
+                        "name": "WaitForElapsedLoops",
+                        "excluded": true
+                    },
+                    {
+                        "name": "WaitForPosition",
+                        "excluded": true
+                    },
+                    {
+                        "name": "WaitForStart",
+                        "excluded": true
+                    },
+                    {
+                        "name": "CompletedLoops",
+                        "excluded": true
+                    },
+                    {
+                        "name": "Delay",
+                        "excluded": true
+                    },
+                    {
+                        "name": "ElapsedDelay",
+                        "excluded": true
+                    },
+                    {
+                        "name": "Duration",
+                        "excluded": true
+                    },
+                    {
+                        "name": "Elapsed",
+                        "excluded": true
+                    },
+                    {
+                        "name": "ElapsedPercentage",
+                        "excluded": true
+                    },
+                    {
+                        "name": "ElapsedDirectionalPercentage",
+                        "excluded": true
+                    },
+                    {
+                        "name": "IsActive",
+                        "excluded": true
+                    },
+                    {
+                        "name": "IsBackwards",
+                        "excluded": true
+                    },
+                    {
+                        "name": "IsComplete",
+                        "excluded": true
+                    },
+                    {
+                        "name": "IsInitialized",
+                        "excluded": true
+                    },
+                    {
+                        "name": "IsPlaying",
+                        "excluded": true
+                    },
+                    {
+                        "name": "Loops",
+                        "excluded": true
+                    },
+                    {
+                        "name": "PathGetPoint",
+                        "excluded": true
+                    },
+                    {
+                        "name": "PathGetDrawPoints",
+                        "excluded": true
+                    },
+                    {
+                        "name": "PathLength",
+                        "excluded": true
+                    }
+                ]
+            },
+            {
+                "className": "DG.Tweening.Core.SequenceCallback",
+                "staticMethods": [],
+                "instanceMethods": [
+                    {
+                        "name": "ctor",
+                        "excluded": false
+                    }
+                ]
+            },
+            {
+                "className": "Game.Car.CarCollision",
+                "staticMethods": [],
+                "instanceMethods": [
+                    {
+                        "name": "init",
+                        "excluded": false
+                    },
+                    {
+                        "name": "OnTriggerEnter",
+                        "excluded": false
+                    },
+                    {
+                        "name": "OnCollisionEnter",
+                        "excluded": false
+                    }
+                ]
+            },
+            {
+                "className": "Game.AI.OpponentAIController",
+                "staticMethods": [],
+                "instanceMethods": [
+                    {
+                        "name": "init",
+                        "excluded": false
+                    },
+                    {
+                        "name": "GetNextCheckpoint",
+                        "excluded": false
+                    },
+                    {
+                        "name": "ControlCoordinate",
+                        "excluded": false
+                    },
+                    {
+                        "name": "ResetController",
+                        "excluded": false
+                    }
+                ]
+            },
+            {
+                "className": "UnityEngine.Collision",
+                "staticMethods": [],
+                "instanceMethods": [
+                    {
+                        "name": "ColliderComponent#get",
+                        "excluded": false
+                    },
+                    {
+                        "name": "RigidbodyComponent#get",
+                        "excluded": true
+                    },
+                    {
+                        "name": "OurRigidbodyComponent#get",
+                        "excluded": true
+                    },
+                    {
+                        "name": "other#get",
+                        "excluded": true
+                    },
+                    {
+                        "name": "rigidbody#get",
+                        "excluded": true
+                    },
+                    {
+                        "name": "gameObject#get",
+                        "excluded": false
+                    },
+                    {
+                        "name": "transform#get",
+                        "excluded": false
+                    },
+                    {
+                        "name": "collider#get",
+                        "excluded": true
+                    },
+                    {
+                        "name": "contacts#get",
+                        "excluded": false
+                    },
+                    {
+                        "name": "contactCount#get",
+                        "excluded": false
+                    },
+                    {
+                        "name": "relativeVelocity#get",
+                        "excluded": true
+                    },
+                    {
+                        "name": "impulse#get",
+                        "excluded": true
+                    },
+                    {
+                        "name": "ourRigidbody#get",
+                        "excluded": true
+                    },
+                    {
+                        "name": "init",
+                        "excluded": false
+                    },
+                    {
+                        "name": "ctor",
+                        "excluded": false
+                    },
+                    {
+                        "name": "GetContact",
+                        "excluded": false
+                    },
+                    {
+                        "name": "ConfigureFor",
+                        "excluded": false
+                    }
+                ]
+            },
+            {
+                "className": "UnityEngine.ContactPoint",
+                "staticMethods": [],
+                "instanceMethods": [
+                    {
+                        "name": "point#get",
+                        "excluded": false
+                    },
+                    {
+                        "name": "normal#get",
+                        "excluded": true
+                    },
+                    {
+                        "name": "depth#get",
+                        "excluded": true
+                    },
+                    {
+                        "name": "thisCollider#get",
+                        "excluded": true
+                    },
+                    {
+                        "name": "otherCollider#get",
+                        "excluded": true
+                    },
+                    {
+                        "name": "init",
+                        "excluded": false
+                    },
+                    {
+                        "name": "ctor",
+                        "excluded": false
                     }
                 ]
             }
