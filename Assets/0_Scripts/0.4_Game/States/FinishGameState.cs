@@ -11,6 +11,10 @@ namespace Game.States
         {
         }
 
+        public FinishGameState(GameManager context, string name) : base(context, name)
+        {
+        }
+
         public override void Enter()
         {
             base.Enter();

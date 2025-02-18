@@ -12,11 +12,14 @@ namespace Game.States
         {
         }
 
+        public GameplayState(GameManager context, string name) : base(context, name)
+        {
+        }
+
         public override void Enter()
         {
             base.Enter();
             _context.PubSubRegister(EventID.OnHitFinishLine, OnHitFinishLine);
-            LogUtility.Info("GameplayState", "EventID.OnStartGameplay");
             _context.PubSubBroadcast(EventID.OnStartGameplay);
         }
 

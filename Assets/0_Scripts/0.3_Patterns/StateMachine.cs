@@ -37,9 +37,16 @@ namespace Patterns
     public abstract class State<T>
     {
         protected T _context;
+        public string name;
         public State(T context)
         {
             _context = context;
+        }
+
+        public State(T context, string name)
+        {
+            _context = context;
+            this.name = name;
         }
 
         public virtual void Enter()

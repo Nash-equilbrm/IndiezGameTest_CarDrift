@@ -2102,10 +2102,6 @@
                 "excluded": true
             },
             {
-                "name": "UnityEngine.AudioClip",
-                "excluded": true
-            },
-            {
                 "name": "UnityEngine.AudioListener",
                 "excluded": true
             },
@@ -6187,11 +6183,11 @@
             },
             {
                 "name": "UnityEngine.WaitForEndOfFrame",
-                "excluded": true
+                "excluded": false
             },
             {
                 "name": "UnityEngine.WaitForFixedUpdate",
-                "excluded": true
+                "excluded": false
             },
             {
                 "name": "Luna.Unity.DTO.UnityEngine.Components.Behaviour",
@@ -7379,10 +7375,6 @@
             },
             {
                 "name": "DG.Tweening.DOTweenCYInstruction.WaitForStart",
-                "excluded": true
-            },
-            {
-                "name": "DG.Tweening.DOTweenModuleAudio",
                 "excluded": true
             },
             {
@@ -20592,6 +20584,10 @@
                     {
                         "name": "Exit",
                         "excluded": false
+                    },
+                    {
+                        "name": "$ctor1",
+                        "excluded": false
                     }
                 ]
             },
@@ -20655,6 +20651,10 @@
                     },
                     {
                         "name": "ChangeToInitGameState",
+                        "excluded": false
+                    },
+                    {
+                        "name": "Update",
                         "excluded": false
                     }
                 ]
@@ -22867,7 +22867,7 @@
                     },
                     {
                         "name": "Cancel",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "Update",
@@ -27857,7 +27857,7 @@
                     },
                     {
                         "name": "ResizeInternalArray",
-                        "excluded": true
+                        "excluded": false
                     },
                     {
                         "name": "ResizeInternalArray$1",
@@ -31736,6 +31736,10 @@
                     {
                         "name": "OnFinishCounting",
                         "excluded": false
+                    },
+                    {
+                        "name": "OnCounting",
+                        "excluded": false
                     }
                 ]
             },
@@ -31908,6 +31912,10 @@
                     {
                         "name": "OnReplayBtnClicked",
                         "excluded": false
+                    },
+                    {
+                        "name": "$ctor1",
+                        "excluded": false
                     }
                 ]
             },
@@ -31929,6 +31937,10 @@
                     },
                     {
                         "name": "OnHitFinishLine",
+                        "excluded": false
+                    },
+                    {
+                        "name": "$ctor1",
                         "excluded": false
                     }
                 ]
@@ -31968,6 +31980,10 @@
                     {
                         "name": "OnStartSpawnGameObjects",
                         "excluded": false
+                    },
+                    {
+                        "name": "$ctor1",
+                        "excluded": false
                     }
                 ]
             },
@@ -31989,6 +32005,10 @@
                     },
                     {
                         "name": "OnStartGameplay",
+                        "excluded": false
+                    },
+                    {
+                        "name": "$ctor1",
                         "excluded": false
                     }
                 ]
@@ -34040,6 +34060,18 @@
                     {
                         "name": "OnCollisionEnter",
                         "excluded": false
+                    },
+                    {
+                        "name": "OnEnable",
+                        "excluded": false
+                    },
+                    {
+                        "name": "OnDisable",
+                        "excluded": false
+                    },
+                    {
+                        "name": "OnStartGameplay",
+                        "excluded": false
                     }
                 ]
             },
@@ -34062,6 +34094,10 @@
                     {
                         "name": "ResetController",
                         "excluded": false
+                    },
+                    {
+                        "name": "OnDrawGizmos",
+                        "excluded": true
                     }
                 ]
             },
@@ -34170,6 +34206,238 @@
                     {
                         "name": "ctor",
                         "excluded": false
+                    }
+                ]
+            },
+            {
+                "className": "Game.Audio.AudioManager",
+                "staticMethods": [],
+                "instanceMethods": [
+                    {
+                        "name": "inherits",
+                        "excluded": false
+                    },
+                    {
+                        "name": "init",
+                        "excluded": false
+                    },
+                    {
+                        "name": "Start",
+                        "excluded": false
+                    },
+                    {
+                        "name": "PlayBGM$1",
+                        "excluded": false
+                    },
+                    {
+                        "name": "PlayBGM",
+                        "excluded": false
+                    },
+                    {
+                        "name": "PlaySFX",
+                        "excluded": false
+                    },
+                    {
+                        "name": "PlaySFX$1",
+                        "excluded": false
+                    },
+                    {
+                        "name": "StopBGM",
+                        "excluded": false
+                    },
+                    {
+                        "name": "StopSFX",
+                        "excluded": true
+                    },
+                    {
+                        "name": "FadeBGM",
+                        "excluded": false
+                    },
+                    {
+                        "name": "StopBGMCoroutine",
+                        "excluded": false
+                    },
+                    {
+                        "name": "StopSFXCoroutine",
+                        "excluded": true
+                    }
+                ]
+            },
+            {
+                "className": "UnityEngine.AudioClip",
+                "staticMethods": [],
+                "instanceMethods": [
+                    {
+                        "name": "name#get",
+                        "excluded": true
+                    },
+                    {
+                        "name": "name#set",
+                        "excluded": true
+                    },
+                    {
+                        "name": "length#get",
+                        "excluded": true
+                    },
+                    {
+                        "name": "ctor",
+                        "excluded": false
+                    }
+                ]
+            },
+            {
+                "className": "Game.Audio.AudioController",
+                "staticMethods": [],
+                "instanceMethods": [
+                    {
+                        "name": "OnEnable",
+                        "excluded": false
+                    },
+                    {
+                        "name": "OnDisable",
+                        "excluded": true
+                    },
+                    {
+                        "name": "ReplayButtonClick",
+                        "excluded": false
+                    },
+                    {
+                        "name": "OnCounting",
+                        "excluded": false
+                    },
+                    {
+                        "name": "OnFinishCounting",
+                        "excluded": false
+                    },
+                    {
+                        "name": "OnFinishGame",
+                        "excluded": false
+                    },
+                    {
+                        "name": "OnGameStartCounting",
+                        "excluded": false
+                    },
+                    {
+                        "name": "PlaySFX",
+                        "excluded": false
+                    }
+                ]
+            },
+            {
+                "className": "Game.Audio.AudioManager.AudioEntry",
+                "staticMethods": [],
+                "instanceMethods": [
+                    {
+                        "name": "getDefaultValue",
+                        "excluded": true
+                    },
+                    {
+                        "name": "ctor",
+                        "excluded": false
+                    },
+                    {
+                        "name": "getHashCode",
+                        "excluded": true
+                    },
+                    {
+                        "name": "equals",
+                        "excluded": true
+                    },
+                    {
+                        "name": "$clone",
+                        "excluded": true
+                    }
+                ]
+            },
+            {
+                "className": "Game.Car.CarSFX",
+                "staticMethods": [],
+                "instanceMethods": [
+                    {
+                        "name": "init",
+                        "excluded": false
+                    },
+                    {
+                        "name": "Start",
+                        "excluded": false
+                    },
+                    {
+                        "name": "OnEnable",
+                        "excluded": false
+                    },
+                    {
+                        "name": "OnDisable",
+                        "excluded": false
+                    },
+                    {
+                        "name": "PlayImpactSFX",
+                        "excluded": false
+                    }
+                ]
+            },
+            {
+                "className": "DG.Tweening.DOTweenModuleAudio",
+                "staticMethods": [],
+                "instanceMethods": [
+                    {
+                        "name": "DOFade",
+                        "excluded": false
+                    },
+                    {
+                        "name": "DOPitch",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOSetFloat",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOComplete",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOKill",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOFlip",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOGoto",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOPause",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOPlay",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOPlayBackwards",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOPlayForward",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DORestart",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DORewind",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOSmoothRewind",
+                        "excluded": true
+                    },
+                    {
+                        "name": "DOTogglePause",
+                        "excluded": true
                     }
                 ]
             }

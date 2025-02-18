@@ -26,8 +26,7 @@ namespace Patterns
         {
             if (listeners.ContainsKey(id) && action != null)
             {
-                if (listeners[id].GetInvocationList().Contains(action))
-                    listeners[id] -= action;
+                listeners[id] -= action;
             }
         }
         public void PSubUnregisterAll(EventID id)
@@ -64,7 +63,7 @@ namespace Patterns
         {
             if (PubSub.HasInstance)
             {
-                LogUtility.InvalidInfo("Unregister Success", $"{listener.name} register {id}");
+                LogUtility.ValidInfo("Unregister Success", $"{listener.name} register {id}");
                 PubSub.Instance.PSUnregister(id, action);
             }
             else
@@ -88,7 +87,7 @@ namespace Patterns
             }
             else
             {
-                LogUtility.NotificationInfo("Broadcast Fail", $"{listener.name} Broadcast {id}");
+                LogUtility.InvalidInfo("Broadcast Fail", $"{listener.name} Broadcast {id}");
             }
         }
         public static void PubSubBroadcast(this MonoBehaviour listener, EventID id, object data)
@@ -100,7 +99,7 @@ namespace Patterns
             }
             else
             {
-                LogUtility.NotificationInfo("Broadcast Fail", $"{listener.name} Broadcast {id}");
+                LogUtility.InvalidInfo("Broadcast Fail", $"{listener.name} Broadcast {id}");
             }
         }
     }

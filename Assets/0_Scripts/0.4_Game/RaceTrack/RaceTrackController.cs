@@ -40,7 +40,12 @@ namespace Game.RaceTrack
 
         public void OnFinishCounting()
         {
-            this.PubSubBroadcast(EventID.FinishCounting);
+            this.PubSubBroadcast(EventID.OnFinishCounting);
+        }
+
+        public void OnCounting()
+        {
+            this.PubSubBroadcast(EventID.OnCounting);
         }
 
     }

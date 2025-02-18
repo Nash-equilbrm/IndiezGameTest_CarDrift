@@ -15,50 +15,33 @@ namespace Game.Car
         public Rigidbody rb = null;
         public CarMovement movementController = null;
         public Action<Vector3> onCollision = null;
+        [SerializeField] private bool _enableDetectingCollision = true;
+
+        private void OnEnable()
+        {
+            this.PubSubRegister(EventID.OnStartGameplay, OnStartGameplay);
+        }
+
+        private void OnDisable()
+        {
+            this.PubSubUnregister(EventID.OnStartGameplay, OnStartGameplay);
+        }
+
+        private void OnStartGameplay(object obj)
+        {
+            _enableDetectingCollision = true;
+        }
 
         private void OnTriggerEnter(Collider other)
         {
+            if (!_enableDetectingCollision) return;
             if (other.gameObject.tag == Constants.STR_FINISH_LINE_TAG)
             {
-                LogUtility.Info("CarController" + gameObject.name, "Hit Finish Line");
                 this.PubSubBroadcast(EventID.OnHitFinishLine, this);
+                _enableDetectingCollision = false;
             }
         }
 
-        //private void OnCollisionEnter(Collision collision)
-        //{
-        //    if (collision.gameObject.CompareTag(Constants.STR_WALL_TAG))
-        //    {
-        //        movementController.OnCollistion(collision);
-        //    }
-        //}
-
-
-
-        // void OnCollisionEnter(Collision collision)
-        // {
-        //     CarCollision otherCarCollision = collision.gameObject.GetComponent<CarCollision>();
-        //
-        //     if (otherCarCollision != null)
-        //     {
-        //         Vector3 pushDirection = collision.transform.position - transform.position;
-        //         pushDirection.Normalize();
-        //
-        //         rb.AddForce(-pushDirection * collisionForce, ForceMode.Impulse);
-        //         Rigidbody otherRb = collision.gameObject.GetComponent<Rigidbody>();
-        //
-        //         if (otherRb != null)
-        //         {
-        //             otherRb.AddForce(pushDirection * collisionForce, ForceMode.Impulse);
-        //             if(onCollision != null)
-        //             {
-        //                 onCollision.Invoke(collision.GetContact(0).point);
-        //             }
-        //         }
-        //
-        //         Debug.Log("Cars collided! Applying pushback.");
-        //     }
-        // }
         
         void OnCollisionEnter(Collision collision)
         {
@@ -81,11 +64,6 @@ namespace Game.Car
                         onCollision.Invoke(collision.GetContact(0).point);
                     }
 
-                    Debug.Log("Cars collided! Applying pushback.");
-                }
-                else
-                {
-                    Debug.LogWarning("One of the cars is missing CarMovement script!");
                 }
             }
         }
