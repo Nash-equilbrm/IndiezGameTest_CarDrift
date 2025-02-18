@@ -1,6 +1,7 @@
 using Commons;
 using Patterns;
 using System;
+using Game.Car;
 
 
 namespace Game.States
@@ -14,19 +15,24 @@ namespace Game.States
         public override void Enter()
         {
             base.Enter();
-            _context.Register(EventID.OnHitFinishLine, OnHitFinishLine);
+            _context.PubSubRegister(EventID.OnHitFinishLine, OnHitFinishLine);
             LogUtility.Info("GameplayState", "EventID.OnStartGameplay");
-            _context.Broadcast(EventID.OnStartGameplay);
+            _context.PubSubBroadcast(EventID.OnStartGameplay);
         }
 
         public override void Exit()
         {
             base.Exit();
-            _context.Unregister(EventID.OnHitFinishLine, OnHitFinishLine);
+            _context.PubSubUnregister(EventID.OnHitFinishLine, OnHitFinishLine);
         }
 
         private void OnHitFinishLine(object obj)
         {
+            CarCollision winner = obj as CarCollision;
+            if (winner != null)
+            {
+                _context.PlayerWin = winner.gameObject == _context.CarController.gameObject;
+            }
             _context.ChangeToFinishGameState();
         }
     }

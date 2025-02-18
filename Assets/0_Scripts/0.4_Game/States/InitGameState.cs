@@ -3,6 +3,7 @@ using Game.Car;
 using Patterns;
 using System;
 using System.Collections;
+using Commons;
 using UnityEngine;
 
 
@@ -10,26 +11,28 @@ namespace Game.States
 {
     public class InitGameState : State<GameManager>
     {
-        private float _initTime = 0.5f;
+        private float _initInterval = 1f;
         public InitGameState(GameManager context) : base(context)
         {
+            LogUtility.Info("InitGameState", "ctor");
         }
 
         public override void Enter()
         {
-            base.Enter();
+            LogUtility.Info("InitGameState", "Enter");
             InitGame();
             StartSpawnGameObjects();
         }
 
         public override void Exit()
         {
-            base.Exit();
-            _context.Unregister(EventID.OnSpawnedGameobjects, OnSpawnedGameobjects);
+            LogUtility.Info("InitGameState", "Exit");
+            _context.PubSubUnregister(EventID.OnSpawnedGameobjects, OnSpawnedGameobjects);
         }
 
         private void InitGame()
         {
+            LogUtility.Info("InitGameState", "InitGame");
             DOTween.Init(recycleAllByDefault: false, useSafeMode: true, LogBehaviour.ErrorsOnly).SetCapacity(50, 10);
 
 
@@ -43,27 +46,40 @@ namespace Game.States
 
         private void OnSpawnedGameobjects(object obj)
         {
+            LogUtility.Info("InitGameState", "OnSpawnedGameobjects");
             var tuple = (Tuple<object, object>)obj;
             _context.CarController = tuple.Item1 as CarController;
             _context.OpponentCarController = tuple.Item2 as CarController;
-
             _context.ChangeToStartGameState();
         }
 
         private void StartSpawnGameObjects()
         {
-            _context.StartCoroutine(IEStartSpawnGameObjects());
+            LogUtility.Info("InitGameState", "StartSpawnGameObjects");
+            Sequence seq = DOTween.Sequence().AppendInterval(_initInterval).AppendCallback(OnStartSpawnGameObjects)
+                .SetAutoKill(true);
+            seq.Play();
+            // _context.StartCoroutine(IEStartSpawnGameObjects());
         }
 
-        private IEnumerator IEStartSpawnGameObjects()
+        // private IEnumerator IEStartSpawnGameObjects()
+        // {
+        //     LogUtility.Info("InitGameState", "IEStartSpawnGameObjects");
+        //     if (!PubSub.HasInstance)
+        //     {
+        //         yield return new WaitForSeconds(_initInterval);
+        //     }
+        //     LogUtility.Info("InitGameState", $"IEStartSpawnGameObjects PubSub.HasInstance: {PubSub.HasInstance}");
+        //     _context.Register(EventID.OnSpawnedGameobjects, OnSpawnedGameobjects);
+        //     _context.carSpawner.gameObject.SetActive(true);
+        //     _context.Broadcast(EventID.OnStartInitGame);
+        // }
+        private void OnStartSpawnGameObjects()
         {
-            while (!PubSub.HasInstance)
-            {
-                yield return null;
-            }
-            _context.Register(EventID.OnSpawnedGameobjects, OnSpawnedGameobjects);
+            LogUtility.Info("InitGameState", $"OnStartSpawnGameObjects PubSub.HasInstance: {PubSub.HasInstance}");
+            _context.PubSubRegister(EventID.OnSpawnedGameobjects, OnSpawnedGameobjects);
             _context.carSpawner.gameObject.SetActive(true);
-            _context.Broadcast(EventID.OnStartInitGame);
+            _context.PubSubBroadcast(EventID.OnStartInitGame);
         }
 
     }

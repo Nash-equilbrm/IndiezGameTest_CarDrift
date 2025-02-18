@@ -32,7 +32,7 @@ namespace Game.RaceTrack
             object param = Tuple.Create((object)playerCar.GetComponent<CarController>(), (object)opponentCar.GetComponent<CarController>());
             //new object());
             LogUtility.InvalidInfo("CarSpawner", "Broadcast(EventID.OnSpawnedGameobjects)");
-            this.Broadcast(EventID.OnSpawnedGameobjects, param);
+            this.PubSubBroadcast(EventID.OnSpawnedGameobjects, param);
         }
 
         private GameObject SpawnPlayer()

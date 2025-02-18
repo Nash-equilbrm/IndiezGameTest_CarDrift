@@ -16,14 +16,14 @@ namespace Game.RaceTrack
         public CarSpawner carSpawner = null;
         private void OnEnable()
         {
-            this.Register(EventID.OnGameStartCounting, OnGameStartCounting);
-            this.Register(EventID.OnStartInitGame, OnStartInitGame);
+            this.PubSubRegister(EventID.OnGameStartCounting, OnGameStartCounting);
+            this.PubSubRegister(EventID.OnStartInitGame, OnStartInitGame);
         }
 
         private void OnDisable()
         {
-            this.Unregister(EventID.OnGameStartCounting, OnGameStartCounting);
-            this.Unregister(EventID.OnStartInitGame, OnStartInitGame);
+            this.PubSubUnregister(EventID.OnGameStartCounting, OnGameStartCounting);
+            this.PubSubUnregister(EventID.OnStartInitGame, OnStartInitGame);
         }
 
         private void OnStartInitGame(object obj)
@@ -40,7 +40,7 @@ namespace Game.RaceTrack
 
         public void OnFinishCounting()
         {
-            this.Broadcast(EventID.FinishCounting);
+            this.PubSubBroadcast(EventID.FinishCounting);
         }
 
     }

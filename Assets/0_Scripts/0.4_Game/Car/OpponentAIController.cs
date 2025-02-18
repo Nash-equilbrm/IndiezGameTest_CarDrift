@@ -25,9 +25,8 @@ namespace Game.AI
             if (_currentCheckpointIndex >= checkpoints.Count)
             {
                 _currentCheckpointIndex = -1;
-                //Debug.Log("OpponentAI: Đã đi hết checkpoints, quay lại điểm bắt đầu.");
                 keepGettingInput = false;
-                this.Broadcast(EventID.OnHitFinishLine);
+                // this.PubSubBroadcast(EventID.OnHitFinishLine);
             }
             if(_currentCheckpointIndex < 0 ||  _currentCheckpointIndex >= checkpoints.Count) { return; }
             _currentCheckpoint = checkpoints[_currentCheckpointIndex];

@@ -10,7 +10,7 @@ namespace Patterns
         private Dictionary<EventID, Action<object>> listeners = new Dictionary<EventID, Action<object>>();
 
         #region Register, Unregister, Broadcast
-        public void Register(EventID id, Action<object> action)
+        public void PSRegister(EventID id, Action<object> action)
         {
             if (action == null) { return; }
             if (listeners.ContainsKey(id))
@@ -22,23 +22,22 @@ namespace Patterns
                 listeners.Add(id, action);
             }
         }
-        public void Unregister(EventID id, Action<object> action)
+        public void PSUnregister(EventID id, Action<object> action)
         {
-
             if (listeners.ContainsKey(id) && action != null)
             {
                 if (listeners[id].GetInvocationList().Contains(action))
                     listeners[id] -= action;
             }
         }
-        public void UnregisterAll(EventID id)
+        public void PSubUnregisterAll(EventID id)
         {
             if (listeners.ContainsKey(id))
             {
                 listeners.Remove(id);
             }
         }
-        public void Broadcast(EventID id, object data = null)
+        public void PSBroadcast(EventID id, object data = null)
         {
             if (listeners.ContainsKey(id))
             {
@@ -49,42 +48,59 @@ namespace Patterns
     }
     public static class PubSubExtension
     {
-        public static void Register(this MonoBehaviour listener, EventID id, Action<object> action)
+        public static void PubSubRegister(this MonoBehaviour listener, EventID id, Action<object> action)
         {
             if (PubSub.HasInstance)
             {
-                LogUtility.ValidInfo("Register", $"{listener.name} register {id} with {action.Method.Name}");
-                PubSub.Instance.Register(id, action);
+                LogUtility.ValidInfo("Register Success", $"{listener.name} register {id}");
+                PubSub.Instance.PSRegister(id, action);
+            }
+            else
+            {
+                LogUtility.InvalidInfo("Register Fail", $"{listener.name} register {id}");
             }
         }
-        public static void Unregister(this MonoBehaviour listener, EventID id, Action<object> action)
+        public static void PubSubUnregister(this MonoBehaviour listener, EventID id, Action<object> action)
         {
             if (PubSub.HasInstance)
             {
-                LogUtility.InvalidInfo("Unregister", $"{listener.name} register {id} with {action.Method.Name}");
-                PubSub.Instance.Unregister(id, action);
+                LogUtility.InvalidInfo("Unregister Success", $"{listener.name} register {id}");
+                PubSub.Instance.PSUnregister(id, action);
+            }
+            else
+            {
+                LogUtility.InvalidInfo("Unregister Fail", $"{listener.name} register {id}");
             }
         }
-        public static void UnregisterAll(this MonoBehaviour listener, EventID id)
+        public static void PubSubUnregisterAll(this MonoBehaviour listener, EventID id)
         {
             if (PubSub.HasInstance)
             {
-                PubSub.Instance.UnregisterAll(id);
+                PubSub.Instance.PSubUnregisterAll(id);
             }
         }
-        public static void Broadcast(this MonoBehaviour listener, EventID id)
+        public static void PubSubBroadcast(this MonoBehaviour listener, EventID id)
         {
             if (PubSub.HasInstance)
             {
-                LogUtility.NotificationInfo("Broadcast", $"{listener.name} Broadcast {id}");
-                PubSub.Instance.Broadcast(id, null);
+                LogUtility.NotificationInfo("Broadcast Success", $"{listener.name} Broadcast {id}");
+                PubSub.Instance.PSBroadcast(id, null);
+            }
+            else
+            {
+                LogUtility.NotificationInfo("Broadcast Fail", $"{listener.name} Broadcast {id}");
             }
         }
-        public static void Broadcast(this MonoBehaviour listener, EventID id, object data)
+        public static void PubSubBroadcast(this MonoBehaviour listener, EventID id, object data)
         {
             if (PubSub.HasInstance)
             {
-                PubSub.Instance.Broadcast(id, data);
+                LogUtility.NotificationInfo("Broadcast Success", $"{listener.name} Broadcast {id}");
+                PubSub.Instance.PSBroadcast(id, data);
+            }
+            else
+            {
+                LogUtility.NotificationInfo("Broadcast Fail", $"{listener.name} Broadcast {id}");
             }
         }
     }

@@ -29,8 +29,9 @@ namespace Game
         private GameplayState _gameplayState = null;
         private FinishGameState _finishGameState = null;
 
-        [field: SerializeField] public CarController CarController { get; set; }
-        [field: SerializeField] public CarController OpponentCarController { get; set; }
+        public CarController CarController { get; set; } = null;
+        public CarController OpponentCarController { get; set; } = null;
+        public bool PlayerWin { get; set; } = true;
         #endregion
 
 
@@ -38,6 +39,7 @@ namespace Game
 
         private void Start()
         {
+            LogUtility.Info("GameManager", "Start");
             _initGameState = new InitGameState(this);
             _startGameState = new StartGameState(this);
             _gameplayState = new GameplayState(this);
@@ -50,25 +52,25 @@ namespace Game
         #region Change States
         public void ChangeToStartGameState()
         {
-            LogUtility.Info("ChangeToStartGameState");
+            LogUtility.Info("GameManager", "ChangeToStartGameState");
             _stateMachine.ChangeState(_startGameState);
         }
 
         public void ChangeToGameplayState()
         {
-            LogUtility.Info("ChangeToGameplayState");
+            LogUtility.Info("GameManager", "ChangeToGameplayState");
             _stateMachine.ChangeState(_gameplayState);
         }
 
         public void ChangeToFinishGameState()
         {
-            LogUtility.Info("ChangeToFinishGameState");
+            LogUtility.Info("GameManager", "ChangeToFinishGameState");
             _stateMachine.ChangeState(_finishGameState);
         }
 
         public void ChangeToInitGameState()
         {
-            LogUtility.Info("ChangeToInitGameState");
+            LogUtility.Info("GameManager", "ChangeToInitGameState");
             _stateMachine.ChangeState(_initGameState);
         }
 

@@ -20,14 +20,14 @@ namespace Game.Car
 
         private void Start()
         {
-            this.Register(EventID.OnStartGameplay, OnStartGameplay);
-            this.Register(EventID.OnFinishGame, OnFinishGame);
+            this.PubSubRegister(EventID.OnStartGameplay, OnStartGameplay);
+            this.PubSubRegister(EventID.OnFinishGame, OnFinishGame);
         }
 
         private void OnDestroy()
         {
-            this.Unregister(EventID.OnStartGameplay, OnStartGameplay);
-            this.Unregister(EventID.OnFinishGame, OnFinishGame);
+            this.PubSubUnregister(EventID.OnStartGameplay, OnStartGameplay);
+            this.PubSubUnregister(EventID.OnFinishGame, OnFinishGame);
         }
 
         private void Update()

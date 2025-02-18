@@ -1,7 +1,8 @@
 using Game.Car;
 using Patterns;
 using System;
-using System.Collections;
+using Commons;
+using DG.Tweening;
 using UnityEngine;
 
 
@@ -12,17 +13,23 @@ namespace Game.CameraUtils
         private Transform _target = null;
         public Vector3 offset = new Vector3(0, 5, -10); // Offset from the target
         public float smoothSpeed = 5f; // Smoothness factor
-
+        
         private void OnEnable()
         {
-            StartCoroutine(IERegisterEvents());
+            Sequence seq = DOTween.Sequence().AppendInterval(.5f).AppendCallback(RegisterEvents);
         }
 
         private void OnDisable()
         {
-            this.Unregister(EventID.OnSpawnedGameobjects, OnSpawnedCars);
+            this.PubSubUnregister(EventID.OnSpawnedGameobjects, OnSpawnedCars);
         }
-
+        
+        private void RegisterEvents()
+        {
+            LogUtility.Info("Camera", "RegisterEvents");
+            this.PubSubRegister(EventID.OnSpawnedGameobjects, OnSpawnedCars);
+        }
+        
         private void OnSpawnedCars(object obj)
         {
             if (_target != null) return;
@@ -48,14 +55,16 @@ namespace Game.CameraUtils
             }
         }
 
-        private IEnumerator IERegisterEvents()
-        {
-            while (!PubSub.HasInstance)
-            {
-                yield return null;
-            }
-            this.Register(EventID.OnSpawnedGameobjects, OnSpawnedCars);
-        }
+        // private IEnumerator IERegisterEvents()
+        // {
+        //     while (!PubSub.HasInstance)
+        //     {
+        //         yield return null;
+        //     }
+        //     this.PubSubRegister(EventID.OnSpawnedGameobjects, OnSpawnedCars);
+        // }
+        
+       
 
     }
 }

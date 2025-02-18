@@ -82,6 +82,7 @@
 using Commons;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 using UnityEngine.Windows;
 
@@ -90,8 +91,7 @@ namespace Game.UI
 
     public class MobileJoystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
     {
-        public RectTransform rectTransform = null;
-        public Transform handle = null;
+        public Transform joystickHandle = null;
         [SerializeField] private Vector2 _startPos = Vector2.zero;
         private bool _isDragging = false;
         private Vector2 _input;
@@ -100,13 +100,13 @@ namespace Game.UI
 
         private void Start()
         {
-            if(handle == null && transform.childCount > 0)
+            if(joystickHandle == null && transform.childCount > 0)
             {
-                handle = transform.GetChild(0);
+                joystickHandle = transform.GetChild(0);
                 RectTransform rectTransform = GetComponent<RectTransform>();
                 _startPos = rectTransform.anchoredPosition;
             }
-            Debug.Log($"Drag Test Initialized: {handle != null}");
+            Debug.Log($"Drag Test Initialized: {joystickHandle != null}");
         }
 
         public void OnPointerDown(PointerEventData eventData)
@@ -122,14 +122,14 @@ namespace Game.UI
             Vector2 currentPos = GetPointerPosition(eventData);
             Vector2 direction = currentPos - _startPos;
             _input = Vector2.ClampMagnitude(direction / _joystickRadius, 1f);
-            handle.localPosition = (_input * _joystickRadius);
+            joystickHandle.localPosition = (_input * _joystickRadius);
         }
 
         public void OnPointerUp(PointerEventData eventData)
         {
             _isDragging = false;
             _input = Vector2.zero;
-            handle.localPosition = Vector2.zero;
+            joystickHandle.localPosition = Vector2.zero;
         }
 
         private Vector2 GetPointerPosition(PointerEventData eventData)

@@ -27,12 +27,14 @@ namespace Patterns
         }
         protected virtual void Awake()
         {
+            LogUtility.ValidInfo("Singleton", $"{gameObject.name} Awake");
             CheckInstance();
         }
         public static bool HasInstance 
         {
             get
             {
+                LogUtility.ValidInfo("Singleton", $"{typeof(T).Name}  HasInstance = {instance != null}");
                 return instance != null;
             }
         }
@@ -54,20 +56,9 @@ namespace Patterns
             return false;
         }
 
-        public static void WaitForInstance(MonoBehaviour context, Action callback)
-        {
-            context.StartCoroutine(IEWaitForInstance(callback));
-        }
-
         private static bool CheckHasInstance()
         {
             return HasInstance;
-        }
-
-        private static IEnumerator IEWaitForInstance(Action callback)
-        {
-            yield return new WaitUntil(CheckHasInstance);
-            callback.Invoke();
         }
     }
 }

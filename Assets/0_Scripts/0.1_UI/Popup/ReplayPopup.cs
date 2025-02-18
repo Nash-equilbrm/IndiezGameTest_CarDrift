@@ -1,6 +1,7 @@
 using DG.Tweening;
 using Patterns;
 using System;
+using TMPro;
 using UI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,6 +11,7 @@ namespace Game.UI
 {
     public class ReplayPopup : BasePopup
     {
+        public TMP_Text resultText;
         public Button playAgainBtn;
         public RectTransform resultPanel;
         public float animDuration;
@@ -30,6 +32,8 @@ namespace Game.UI
         public override void Show(object data)
         {
             base.Show(data);
+            bool playerWin = (bool)data;
+            resultText.text = playerWin ? "You Win" : "You Lose";
             canvasGroup.alpha = 0;
             DoAnimationShow();
         }
@@ -72,7 +76,7 @@ namespace Game.UI
 
         public void OnReplayBtnClicked()
         {
-            this.Broadcast(EventID.OnReplayBtnClicked);
+            this.PubSubBroadcast(EventID.OnReplayBtnClicked);
             Hide();
         }
 
