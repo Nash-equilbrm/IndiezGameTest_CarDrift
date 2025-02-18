@@ -34399,7 +34399,7 @@
             "enabled": false
         },
         "playerPrefs": true,
-        "enableDynamicBatching": false,
+        "enableDynamicBatching": true,
         "forceSourcesBasedCompilation": false
     },
     "assets": {

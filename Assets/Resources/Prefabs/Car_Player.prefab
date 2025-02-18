@@ -15312,8 +15312,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cba81c109a33494d98af79308bce09a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceleration: 20
-  maxSpeed: 15
+  acceleration: 30
+  maxSpeed: 20
   steerSpeed: 70
   traction: 0.01
   drag: 0.99
