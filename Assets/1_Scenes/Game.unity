@@ -1250,12 +1250,6 @@ MonoBehaviour:
   _bgmSource: {fileID: 1617800652}
   _sfxSource: {fileID: 453506483}
   _sfxClips:
-  - name: CarDrift
-    clip: {fileID: 8300000, guid: 9597c9974f8f3404ead6a8950bb41b23, type: 3}
-  - name: CarIdle
-    clip: {fileID: 8300000, guid: 17095cd4222b0ba4fa014cec42b8d19c, type: 3}
-  - name: CarDrive
-    clip: {fileID: 8300000, guid: 9a6d7f5c538db384db898bdaba033bf7, type: 3}
   - name: CarImpact
     clip: {fileID: 8300000, guid: 52fd8c2ef45dc7f4ca5c5e853adab7e1, type: 3}
   - name: Win

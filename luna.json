@@ -7398,10 +7398,6 @@
                 "excluded": true
             },
             {
-                "name": "Patterns.ObjectPooling.ObjectPool",
-                "excluded": true
-            },
-            {
                 "name": "DG.Tweening.DOTweenCYInstruction",
                 "excluded": true
             },
@@ -20660,32 +20656,6 @@
                 ]
             },
             {
-                "className": "Patterns.ObjectPooling",
-                "staticMethods": [],
-                "instanceMethods": [
-                    {
-                        "name": "inherits",
-                        "excluded": false
-                    },
-                    {
-                        "name": "InactiveObjects#get",
-                        "excluded": true
-                    },
-                    {
-                        "name": "Remove",
-                        "excluded": true
-                    },
-                    {
-                        "name": "init",
-                        "excluded": true
-                    },
-                    {
-                        "name": "GetPool",
-                        "excluded": true
-                    }
-                ]
-            },
-            {
                 "className": "Patterns.PubSub",
                 "staticMethods": [],
                 "instanceMethods": [
@@ -31800,28 +31770,6 @@
                 ]
             },
             {
-                "className": "UIOutline",
-                "staticMethods": [],
-                "instanceMethods": [
-                    {
-                        "name": "mainTexture#get",
-                        "excluded": false
-                    },
-                    {
-                        "name": "init",
-                        "excluded": false
-                    },
-                    {
-                        "name": "OnRectTransformDimensionsChange",
-                        "excluded": false
-                    },
-                    {
-                        "name": "OnPopulateMesh",
-                        "excluded": false
-                    }
-                ]
-            },
-            {
                 "className": "UI.BaseOverlap",
                 "staticMethods": [],
                 "instanceMethods": [
@@ -34519,7 +34467,28 @@
                     "script": "",
                     "ext": ""
                 },
-                "overrides": []
+                "overrides": [
+                    {
+                        "channels": 1,
+                        "startTime": "00:00.000",
+                        "endTime": "00:30.000",
+                        "lengthInSeconds": 30.0,
+                        "bitrate": 128,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/Resources/Audio/BgMusic.mp3"
+                    },
+                    {
+                        "channels": 1,
+                        "startTime": "00:00.000",
+                        "endTime": "00:00.000",
+                        "lengthInSeconds": 0.0,
+                        "bitrate": 128,
+                        "script": "",
+                        "ext": "",
+                        "name": "Assets/Resources/Audio/CarDrive.mp3"
+                    }
+                ]
             },
             "font": {
                 "default": {
