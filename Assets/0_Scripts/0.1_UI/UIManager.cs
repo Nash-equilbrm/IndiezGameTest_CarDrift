@@ -1,4 +1,5 @@
 using Patterns;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +8,16 @@ namespace UI
 {
     public class UIManager : Singleton<UIManager>
     {
+        [Serializable]
+        public struct UIPrefabEntry
+        {
+            public GameObject prefab;
+            public string name;
+        }
+        public List<UIPrefabEntry> screenPrefabs = new List<UIPrefabEntry>();
+        public List<UIPrefabEntry> overlapPrefabs = new List<UIPrefabEntry>();
+        public List<UIPrefabEntry> popupPrefabs = new List<UIPrefabEntry>();
+        public List<UIPrefabEntry> notifyPrefabs = new List<UIPrefabEntry>();
         public GameObject cScreen, cPopup, cNotify, cOverlap;
 
         private Dictionary<string, BaseScreen> _screens = new Dictionary<string, BaseScreen>();
@@ -14,25 +25,16 @@ namespace UI
         private Dictionary<string, BaseNotify> _notifies = new Dictionary<string, BaseNotify>();
         private Dictionary<string, BaseOverlap> _overlaps = new Dictionary<string, BaseOverlap>();
 
-        public Dictionary<string, BaseScreen> Screens => _screens;
-        public Dictionary<string, BasePopup> Popups => _popups;
-        public Dictionary<string, BaseNotify> Notifies => _notifies;
-        public Dictionary<string, BaseOverlap> Overlaps => _overlaps;
-
         private BaseScreen _curScreen;
         private BasePopup _curPopup;
         private BaseNotify _curNotify;
         private BaseOverlap _curOverlap;
 
-        public BaseScreen CurScreen => _curScreen;
-        public BasePopup CurPopup => _curPopup;
-        public BaseNotify CurNotify => _curNotify;
-        public BaseOverlap CurOverlap => _curOverlap;
 
-        private const string SCREEN_RESOURCES_PATH = "Prefabs/UI/Screen/";
-        private const string POPUP_RESOURCES_PATH = "Prefabs/UI/Popup/";
-        private const string NOTIFY_RESOURCES_PATH = "Prefabs/UI/Notify/";
-        private const string OVERLAP_RESOURCES_PATH = "Prefabs/UI/Overlap/";
+        //private const string SCREEN_RESOURCES_PATH = "Prefabs/UI/Screen/";
+        //private const string POPUP_RESOURCES_PATH = "Prefabs/UI/Popup/";
+        //private const string NOTIFY_RESOURCES_PATH = "Prefabs/UI/Notify/";
+        //private const string OVERLAP_RESOURCES_PATH = "Prefabs/UI/Overlap/";
 
 
         #region Screen
@@ -460,34 +462,55 @@ namespace UI
         private GameObject GetUIPrefab(UIType t, string uiName)
         {
             GameObject result = null;
-            var defaultPath = "";
             if (result == null)
             {
                 switch (t)
                 {
                     case UIType.Screen:
                         {
-                            defaultPath = SCREEN_RESOURCES_PATH + uiName;
+                            for (int i = 0; i < screenPrefabs.Count; i++)
+                            {
+                                if (screenPrefabs[i].name == uiName)
+                                {
+                                    result = screenPrefabs[i].prefab;
+                                }
+                            }
                         }
                         break;
                     case UIType.Popup:
                         {
-                            defaultPath = POPUP_RESOURCES_PATH + uiName;
+                            for (int i = 0; i < popupPrefabs.Count; i++)
+                            {
+                                if (popupPrefabs[i].name == uiName)
+                                {
+                                    result = popupPrefabs[i].prefab;
+                                }
+                            }
                         }
                         break;
                     case UIType.Notify:
                         {
-                            defaultPath = NOTIFY_RESOURCES_PATH + uiName;
+                            for (int i = 0; i < notifyPrefabs.Count; i++)
+                            {
+                                if (notifyPrefabs[i].name == uiName)
+                                {
+                                    result = notifyPrefabs[i].prefab;
+                                }
+                            }
                         }
                         break;
                     case UIType.Overlap:
                         {
-                            defaultPath = OVERLAP_RESOURCES_PATH + uiName;
+                            for (int i = 0; i < overlapPrefabs.Count; i++)
+                            {
+                                if (overlapPrefabs[i].name == uiName)
+                                {
+                                    result = overlapPrefabs[i].prefab;
+                                }
+                            }
                         }
                         break;
                 }
-
-                result = Resources.Load(defaultPath) as GameObject;
             }
             return result;
         }

@@ -14,15 +14,15 @@ namespace Game.States
         public override void Enter()
         {
             base.Enter();
-            UIManager.Instance.ShowPopup<ReplayPopup>(forceShowData: true);
-            _context.Register(EventID.OnReplayBtnClicked, OnReplayBtnClicked);
-            _context.Broadcast(EventID.OnFinishGame);
+            UIManager.Instance.ShowPopup<ReplayPopup>(data: _context.PlayerWin, forceShowData: true);
+            _context.PubSubRegister(EventID.OnReplayBtnClicked, OnReplayBtnClicked);
+            _context.PubSubBroadcast(EventID.OnFinishGame);
         }
 
         public override void Exit()
         {
             base.Exit();
-            _context.Unregister(EventID.OnReplayBtnClicked, OnReplayBtnClicked);
+            _context.PubSubUnregister(EventID.OnReplayBtnClicked, OnReplayBtnClicked);
         }
 
         private void OnReplayBtnClicked(object obj)

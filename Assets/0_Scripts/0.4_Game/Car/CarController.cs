@@ -2,55 +2,84 @@ using Commons;
 using Game.Commons;
 using Patterns;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Windows;
 
 
 namespace Game.Car
 {
     public class CarController : MonoBehaviour
     {
-        [SerializeReference] private CarMovement _movementController;
+        public CarMovement movementController = null;
+        public Transform coordinateUI = null;
+        public bool keepGettingInput = true;
+        private Vector2 _input = Vector2.zero;
+        private Vector2 _lastInput = Vector2.zero;
 
-        public CarMovement MovementController { get => _movementController; set => _movementController = value; }
+        public Func<Vector2> onGetInputValue = null;
 
-        private void OnEnable()
+        private void Start()
         {
-            _movementController.enabled = false;
-
-            this.Register(EventID.OnStartGameplay, OnStartGameplay);
-            this.Register(EventID.OnFinishGame, OnFinishGame);
+            this.PubSubRegister(EventID.OnStartGameplay, OnStartGameplay);
+            this.PubSubRegister(EventID.OnFinishGame, OnFinishGame);
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
-            this.Unregister(EventID.OnStartGameplay, OnStartGameplay);
-            this.Unregister(EventID.OnFinishGame, OnFinishGame);
+            this.PubSubUnregister(EventID.OnStartGameplay, OnStartGameplay);
+            this.PubSubUnregister(EventID.OnFinishGame, OnFinishGame);
+        }
+
+        private void Update()
+        {
+            ControlCoordinate();
         }
 
         private void OnStartGameplay(object obj)
         {
-            _movementController.ResetMovement();
-            _movementController.enabled = true;
+            LogUtility.Info("OnStartGameplay" + gameObject.name, "ResetMovement");
+            ResetController();
         }
 
         private void OnFinishGame(object obj)
         {
             // stop engine
-            _movementController.ResetMovement();
-            _movementController.KeepGettingInput = false;
+            ResetController();
+            keepGettingInput = false;
         }
 
 
-        private void OnTriggerEnter(Collider other)
+      
+
+        protected virtual void ControlCoordinate()
         {
-            if(other.gameObject.tag == Constants.STR_FINISH_LINE_TAG)
+            if (coordinateUI is null || onGetInputValue is null) return;
+            _input = keepGettingInput ? onGetInputValue.Invoke() : Vector2.zero;
+
+            Vector3 lookDirection;
+            Vector2 input;
+            if (_input == Vector2.zero)
             {
-                LogUtility.Info("CarController", "Hit Finish Line");
-                this.Broadcast(EventID.OnHitFinishLine);
+                input = _lastInput;
             }
+            else
+            {
+                input = _input;
+                _lastInput = _input;
+            }
+            lookDirection = Camera.main.transform.TransformDirection(input);
+            lookDirection.y = 0;
+            coordinateUI.rotation = Quaternion.LookRotation(lookDirection, Vector3.up);
+            movementController.DirectionVector = coordinateUI.forward;
+        }
+
+
+        protected virtual void ResetController()
+        {
+            movementController.ResetMovement();
+            //_input = Vector2.zero;
+            _lastInput = Vector2.zero;
+            keepGettingInput = true;
         }
     }
 }

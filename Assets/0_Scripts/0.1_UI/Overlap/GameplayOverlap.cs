@@ -1,4 +1,6 @@
+using Commons;
 using Game.Car;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UI;
@@ -9,8 +11,8 @@ namespace Game.UI
 {
     public class GameplayOverlap : BaseOverlap
     {
-        public Joystick joystick;
-        private CarMovement _carMovementController;
+        public MobileJoystick joystick = null;
+        private CarController _carMovementController = null;
 
         public override void Hide()
         {
@@ -27,10 +29,16 @@ namespace Game.UI
         public override void Show(object data)
         {
             base.Show(data);
-            if (data is not CarController controller) return;
-            _carMovementController = controller.MovementController;
+            Tuple<CarController, CarController> controllers = data as Tuple<CarController, CarController>;
+            _carMovementController = controllers.Item1;
             if (!_carMovementController) return;
-            _carMovementController.onGetInputValue = () => new Vector2(joystick.Horizontal, joystick.Vertical);
+            LogUtility.Info("GameplayOverlap", "_carMovementController.onGetInputValue = GetJoystickInput");
+            _carMovementController.onGetInputValue = GetJoystickInput;
+        }
+
+        private Vector2 GetJoystickInput()
+        {
+            return joystick.JoystickInput;
         }
     }
 }

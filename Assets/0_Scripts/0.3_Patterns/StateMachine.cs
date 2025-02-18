@@ -5,10 +5,18 @@ namespace Patterns
     public class StateMachine<T>
     {
         private State<T> _currentState;
-        public State<T> CurrentState { get => _currentState; set => _currentState = value; }
-
+        public State<T> CurrentState
+        {
+            get { return _currentState; }
+            set { _currentState = value; }
+        }
         private State<T> _previousState;
-        public State<T> PreviousState { get => _previousState; set => _previousState = value; }
+        public State<T> PreviousState
+        {
+            get { return _previousState; }
+            set { _previousState = value; }
+        }
+
 
         public void Initialize(State<T> startingState)
         {

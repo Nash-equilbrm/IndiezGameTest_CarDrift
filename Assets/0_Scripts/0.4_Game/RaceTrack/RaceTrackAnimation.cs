@@ -8,10 +8,10 @@ namespace Game.RaceTrack
 {
     public class RaceTrackAnimation : MonoBehaviour
     {
-        [SerializeField] private Animator _startLineAnimator;
+        public Animator _startLineAnimator = null;
 
 
-        internal void PlayStartLineCountingAnim()
+        public void PlayStartLineCountingAnim()
         {
             _startLineAnimator.Play(Constants.STR_START_LINE_COUNTING_ANIM);
         }

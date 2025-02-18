@@ -1,10 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace Patterns
 {
@@ -14,8 +11,7 @@ namespace Patterns
         public class ObjectPool
         {
             [Tooltip("Pool's name"), SerializeField]
-            private string name;
-            public string Name { get => name; }
+            public string poolName;
             [Tooltip("The object to instantiate"), SerializeField]
             private GameObject prefab;
             [Tooltip("The pool of instantated objects"), SerializeField]
@@ -42,7 +38,7 @@ namespace Patterns
                 }
                 var newObject = Instantiate(prefab, position, Quaternion.Euler(rotation));
 #if UNITY_EDITOR
-                newObject.name = $"{name}_{pool.Count}";
+                newObject.name = $"{poolName}_{pool.Count}";
 #endif
                 pool.Add(newObject);
                 pool[pool.Count - 1].transform.SetParent(parent);
@@ -103,7 +99,7 @@ namespace Patterns
                 {
                     var newObject = Instantiate(prefab, InactiveObjects);
 #if UNITY_EDITOR
-                    newObject.name = $"{name}_{pool.Count}";
+                    newObject.name = $"{poolName}_{pool.Count}";
 #endif
                     pool.Add(newObject);
                     pool[pool.Count - 1].SetActive(false);
@@ -147,7 +143,7 @@ namespace Patterns
         {
             foreach (ObjectPool pool in pools)
             {
-                if (pool.Name == name)
+                if (pool.poolName == name)
                 {
                     return pool;
                 }

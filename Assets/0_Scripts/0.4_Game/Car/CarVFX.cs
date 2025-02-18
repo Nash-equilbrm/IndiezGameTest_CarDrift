@@ -7,11 +7,23 @@ namespace Game.Car
 {
     public class CarVFX : MonoBehaviour
     {
-        public ParticleSystem driftSmokeVFX;
-        public ParticleSystem[] dirtTrailVFXs;
-        public float minVelocityToDisplayDirt;
-        [SerializeField] private CarMovement _carMovement;
+        public ParticleSystem driftSmokeVFX = null;
+        public ParticleSystem[] dirtTrailVFXs = null;
+        public ParticleSystem impactVFX = null;
+        public float minVelocityToDisplayDirt = 0f;
+        public CarMovement carMovement = null;
+        public CarCollision carCollision = null;
 
+
+        private void OnEnable()
+        {
+            carCollision.onCollision += PlayImpactVFX;
+        }
+
+        private void OnDisable()
+        {
+            carCollision.onCollision -= PlayImpactVFX;
+        }
 
         private void Update()
         {
@@ -22,7 +34,7 @@ namespace Game.Car
 
         private void PlayDirtVFX()
         {
-            if (_carMovement.CurrentSpeedSqr < minVelocityToDisplayDirt * minVelocityToDisplayDirt)
+            if (carMovement.CurrentSpeedSqr < minVelocityToDisplayDirt * minVelocityToDisplayDirt)
             {
                 foreach (var dirtTrail in dirtTrailVFXs)
                 {
@@ -45,10 +57,16 @@ namespace Game.Car
 
         private void PlaySmokeVFX()
         {
-            if (_carMovement.IsDrifting && !driftSmokeVFX.isPlaying)
+            if (carMovement.IsDrifting && !driftSmokeVFX.isPlaying)
             {
                 driftSmokeVFX.Play();
             }
+        }
+
+        private void PlayImpactVFX(Vector3 position)
+        {
+            impactVFX.transform.position = position;
+            impactVFX.Play();
         }
     }
 }

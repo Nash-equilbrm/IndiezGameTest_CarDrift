@@ -1,41 +1,52 @@
-using System;
+using Commons;
 using UnityEngine;
 
 namespace Game.Car
 {
-    [RequireComponent(typeof(Rigidbody))]
     public class CarMovement : MonoBehaviour
     {
-        public float acceleration = 10;
-        public float maxSpeed = 15;
-        public float steerSpeed = 100;
-        public float traction = 1;
-        public float drag = .98f;
-        public float driftAngleThreshold = 10f;
+        [LunaPlaygroundField("acceleration", 1, "Car Settings")] public float acceleration = 10;
+        [LunaPlaygroundField("maxSpeed", 2, "Car Settings")] public float maxSpeed = 15;
+        [LunaPlaygroundField("steerSpeed", 3, "Car Settings")] public float steerSpeed = 100;
+        [LunaPlaygroundField("traction", 4, "Car Settings")] public float traction = 1;
+        [LunaPlaygroundField("drag", 5, "Car Settings")] public float drag = .98f;
+        [LunaPlaygroundField("driftAngleThreshold", 6, "Car Settings")] public float driftAngleThreshold = 10f;
+        [LunaPlaygroundField("steeringThreshold", 7, "Car Settings")] public float steeringThreshold = 0.01f;
 
-        public Transform coordinateUI;
+        public CarController carController = null;
 
-        public Func<Vector2> onGetInputValue;
-        private Vector2 _input;
-        private Vector2 _lastInput;
-
-        private Vector3 _directionVector;
-
-
-        [SerializeField] private Rigidbody _rb;
-
-        public bool KeepGettingInput { get; internal set; }
-        public float CurrentSpeedSqr => _rb.velocity.sqrMagnitude;
-
-        public bool IsDrifting => KeepGettingInput ? Vector3.Angle(_rb.velocity, transform.forward) > driftAngleThreshold : false;
-
-        //public float curSpeed;
-
-        private void Awake()
+        private Vector3 _directionVector = Vector3.zero;
+        public Vector3 DirectionVector
         {
-            _rb.interpolation = RigidbodyInterpolation.Interpolate;
-            _rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
-            _rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+            get { return _directionVector; }
+            set { _directionVector = value; }
+        }
+
+        public bool KeepGettingInput
+        {
+            get { return carController.keepGettingInput; }
+        }
+
+        private Vector3 _velocity = Vector3.zero;
+        public Vector3 Velocity
+        {
+            get
+            {
+                return _velocity;
+            }
+            set
+            {
+                _velocity = value;
+            }
+        }
+        public float CurrentSpeedSqr
+        {
+            get { return _velocity.sqrMagnitude; }
+        }
+
+        public bool IsDrifting
+        {
+            get { return KeepGettingInput ? Vector3.Angle(_velocity, transform.forward) > driftAngleThreshold : false; }
         }
 
         private void OnEnable()
@@ -43,48 +54,15 @@ namespace Game.Car
             ResetMovement();
         }
 
-        private void OnDisable()
-        {
-            KeepGettingInput = false;
-        }
-
         private void Update()
         {
-            GetDirectionFromJoyStick();
-            Steer();
-        }
-
-        private void FixedUpdate()
-        {
             Move();
+            Steer();
             ApplyTraction();
-
             if (!KeepGettingInput)
             {
                 Drag();
             }
-
-            //curSpeed = _rb.velocity.magnitude;
-        }
-
-        private void GetDirectionFromJoyStick()
-        {
-            if (coordinateUI is null || onGetInputValue is null) return;
-
-            _input = KeepGettingInput ? onGetInputValue.Invoke() : Vector2.zero;
-
-            Vector3 lookDirection;
-            if (_input == Vector2.zero)
-                lookDirection = Camera.main.transform.TransformDirection(_lastInput);
-            else
-            {
-                lookDirection = Camera.main.transform.TransformDirection(_input);
-                _lastInput = _input;
-            }
-
-            lookDirection.y = 0;
-            coordinateUI.rotation = Quaternion.LookRotation(lookDirection, Vector3.up);
-            _directionVector = coordinateUI.forward;
         }
 
         private void Move()
@@ -93,55 +71,58 @@ namespace Game.Car
             {
                 float turnAngle = Vector3.Angle(transform.forward, _directionVector);
                 float turnFactor = Mathf.Clamp01(turnAngle / 90f);
-                float radius = Mathf.Max(1f, _rb.velocity.magnitude / (steerSpeed * Mathf.Deg2Rad)); // Assume
-
-                float centripetalForce = _rb.velocity.sqrMagnitude / radius;
-
                 float adjustedAcceleration = acceleration * (1 - 0.5f * turnFactor);
 
+                Vector3 accelerationVector = transform.forward * adjustedAcceleration;
+                _velocity += accelerationVector * Time.deltaTime;
 
-
-                _rb.AddForce(transform.forward * adjustedAcceleration, ForceMode.Acceleration);
-
-                if (_rb.velocity.magnitude > maxSpeed)
+                if (_velocity.magnitude > maxSpeed)
                 {
-                    _rb.velocity = _rb.velocity.normalized * maxSpeed;
+                    _velocity = _velocity.normalized * maxSpeed;
                 }
+                
+                transform.position += _velocity * Time.deltaTime;
             }
         }
 
         private void Steer()
         {
-            if (_directionVector.sqrMagnitude > 0.01f)
-            {
-                Quaternion targetRotation = Quaternion.LookRotation(_directionVector);
+            float angle = Vector3.Angle(transform.forward, _directionVector);
+            Quaternion targetRotation = Quaternion.LookRotation(_directionVector);
 
-                if (Vector3.Angle(transform.forward, _directionVector) > 1f)
-                {
-                    Quaternion newRotation = Quaternion.RotateTowards(transform.rotation, targetRotation, steerSpeed * Time.fixedDeltaTime);
-                    _rb.MoveRotation(newRotation);
-                }
+            if (angle > 1f)
+            {
+                LogUtility.Info("Steering");
+                Quaternion newRotation = Quaternion.RotateTowards(transform.rotation, targetRotation, steerSpeed * Time.deltaTime);
+                transform.rotation = newRotation;
+                Drag();
+            }
+            else
+            {
+                LogUtility.Info("Stop Steering");
+                transform.rotation = targetRotation;
             }
         }
 
         private void Drag()
         {
-            _rb.velocity *= drag;
-            if (_rb.velocity.sqrMagnitude < 0.01f)
+            _velocity *= drag;
+            if (_velocity.sqrMagnitude < 0.01f)
             {
-                _rb.velocity = Vector3.zero;
+                _velocity = Vector3.zero;
             }
         }
-
+        
         private void ApplyTraction()
         {
-            _rb.velocity = Vector3.Lerp(_rb.velocity.normalized, _directionVector, traction * Time.deltaTime) * _rb.velocity.magnitude;
+            _velocity = Vector3.Lerp(_velocity.normalized, transform.forward, traction * Time.deltaTime) * _velocity.magnitude;
         }
+        
 
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawLine(transform.position, transform.position + _rb.velocity);
+            Gizmos.DrawLine(transform.position, transform.position + _velocity);
             Gizmos.color = Color.green;
             Gizmos.DrawLine(transform.position, transform.position + transform.forward * 3);
             Gizmos.color = Color.blue;
@@ -150,10 +131,7 @@ namespace Game.Car
 
         internal void ResetMovement()
         {
-            _lastInput = Vector2.zero;
-            _rb.velocity = Vector3.zero;
-            KeepGettingInput = true;
+            _velocity = Vector3.zero;
         }
     }
 }
-

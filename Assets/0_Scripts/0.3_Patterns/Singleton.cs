@@ -13,23 +13,31 @@ namespace Patterns
         {
             get
             {
-                if (instance == null)
-                {
-                    instance = FindAnyObjectByType<T>();
-                    if (instance == null)
-                    {
-                        LogUtility.NotificationInfo($"No {typeof(T).Name} Singleton Instance");
-                    }
+                //    if (instance == null)
+                //    {
+                //        instance = FindAnyObjectByType<T>();
+                //        if (instance == null)
+                //        {
+                //            LogUtility.NotificationInfo($"No {typeof(T).Name} Singleton Instance");
+                //        }
 
-                }
+                //    }
                 return instance;
             }
         }
         protected virtual void Awake()
         {
+            LogUtility.ValidInfo("Singleton", $"{gameObject.name} Awake");
             CheckInstance();
         }
-        public static bool HasInstance => instance != null;
+        public static bool HasInstance 
+        {
+            get
+            {
+                LogUtility.ValidInfo("Singleton", $"{typeof(T).Name}  HasInstance = {instance != null}");
+                return instance != null;
+            }
+        }
 
         protected bool CheckInstance()
         {
@@ -48,15 +56,9 @@ namespace Patterns
             return false;
         }
 
-        public static void WaitForInstance(MonoBehaviour context, Action callback)
+        private static bool CheckHasInstance()
         {
-            context.StartCoroutine(IEWaitForInstance(callback));
-        }
-
-        private static IEnumerator IEWaitForInstance(Action callback)
-        {
-            yield return new WaitUntil(() => HasInstance);
-            callback?.Invoke();
+            return HasInstance;
         }
     }
 }
