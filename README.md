@@ -18,8 +18,8 @@
 
 ---
 
-[Base project](Base%20project%2019641ccd24498051a4e7cf2552648950.md)
+[Base project](Base%20project.md)
 
-[Car controller](Car%20controller%2019641ccd2449804795a2e769d34cae9f.md)
+[Car controller](Car%20controller.md)
 
-[Game states](Game%20states%2019f41ccd244980ddaf53f01c39e4f7c5.md)
+[Game states](Game%20states.md)
